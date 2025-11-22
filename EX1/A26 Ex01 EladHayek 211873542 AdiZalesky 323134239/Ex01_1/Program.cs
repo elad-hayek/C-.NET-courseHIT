@@ -7,37 +7,45 @@ namespace Ex01_1
         public static void Main()
         {
             BinaryByteNumberGroup binaryByteNumberGroup = new BinaryByteNumberGroup();
-            bool addBinaryByteNumberOperationSuceeded = true;
-            bool validationCheck = false;
+            bool addBinaryByteNumberOperationSucceeded = true;
+            bool isInputValid = false;
 
             for (int i = 0; i < 3; i++)
             {
                 string input;
+
                 do
                 {
-                    Console.Write(string.Format("Enter binary byte number {0} (8 bits): ", i + 1));
+                    Console.Write(
+                        string.Format("Enter binary byte number {0} (8 bits): ", i + 1));
+
                     input = Console.ReadLine();
-                    validationCheck = BinaryByteNumber.ValidateString(input);
-                    if (!validationCheck)
+                    isInputValid = BinaryByteNumber.ValidateString(input);
+
+                    if (!isInputValid)
                     {
                         Console.WriteLine("Invalid input. Please enter exactly 8 bits (0s and 1s only).");
                     }
-                } while (!validationCheck);
+                }
+                while (!isInputValid);
 
                 BinaryByteNumber binaryByteNumber = new BinaryByteNumber(input);
-                addBinaryByteNumberOperationSuceeded = binaryByteNumberGroup.AddBinaryByteNumber(binaryByteNumber, i);
-                if (!addBinaryByteNumberOperationSuceeded)
+                addBinaryByteNumberOperationSucceeded =
+                    binaryByteNumberGroup.AddBinaryByteNumber(binaryByteNumber, i);
+
+                if (!addBinaryByteNumberOperationSucceeded)
                 {
                     Console.WriteLine("Error: Could not add binary byte number to the group.");
+
                     return;
                 }
             }
 
-            binaryByteNumberGroup.PrintNumbersInAcendingOrder();
+            binaryByteNumberGroup.PrintNumbersInAscendingOrder();
             binaryByteNumberGroup.PrintAverageDecimalValue();
             binaryByteNumberGroup.PrintShortestConsecutiveBitsCounts();
             binaryByteNumberGroup.PrintNumberOfPalindromes();
-            binaryByteNumberGroup.PrintMaximumDiffrencesBetweenOnesAndZeros();
+            binaryByteNumberGroup.PrintMaximumDifferencesBetweenOnesAndZeros();
             binaryByteNumberGroup.PrintCountOfNumbersThatStartAndEndWithSameBit();
         }
     }
