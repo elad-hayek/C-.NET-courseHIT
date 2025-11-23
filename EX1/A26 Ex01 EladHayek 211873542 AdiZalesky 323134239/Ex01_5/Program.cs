@@ -10,7 +10,7 @@ namespace Ex01_5
             string userInput;
             do
             {
-                Console.WriteLine("Please enter a whole number exactly 7 digits:");
+                Console.WriteLine("Please enter a whole number of exactly 7 digits:");
                 userInput = Console.ReadLine();
 
             }
