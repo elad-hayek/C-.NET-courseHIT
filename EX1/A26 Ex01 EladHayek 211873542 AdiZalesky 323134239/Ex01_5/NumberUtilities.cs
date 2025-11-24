@@ -81,15 +81,15 @@ namespace Ex01_5
             return maxDigit - minDigit;
         }
 
-        public static int GetTheMostCommonDigit(string i_Number, out int o_NumberOfAccurences)
+        public static int GetTheMostCommonDigit(string i_Number, out int io_NumberOfAccurences)
         {
             if (!IsNumberValid(i_Number))
             {
-                o_NumberOfAccurences = -1;
+                io_NumberOfAccurences = -1;
                 return -1;
             }
 
-            o_NumberOfAccurences = 0;
+            io_NumberOfAccurences = 0;
             int mostCommonDigit = -1;
 
             for (int digit = 0; digit <= 9; digit++)
@@ -103,9 +103,9 @@ namespace Ex01_5
                         currentDigitCount++;
                     }
                 }
-                if (currentDigitCount > o_NumberOfAccurences)
+                if (currentDigitCount > io_NumberOfAccurences)
                 {
-                    o_NumberOfAccurences = currentDigitCount;
+                    io_NumberOfAccurences = currentDigitCount;
                     mostCommonDigit = digit;
                 }
             }
