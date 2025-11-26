@@ -9,21 +9,21 @@ namespace Ex01_5
         {
             if (string.IsNullOrEmpty(i_Number) || i_Number.Length != 7)
             {
-                Console.WriteLine("Error: The string provided is null or empty");
+                Console.WriteLine("Error: The string provided is null or empty or diffrent then 7 digits");
                 return false;
             }
 
             return int.TryParse(i_Number, out int number);
         }
 
-        public static int HowManyDigitsAreGraterThanTheFirstDigit(string i_Number)
+        public static int HowManyDigitsAreGreaterThanTheFirstDigit(string i_Number)
         {
-            int digitsCount = 0;
             if (!IsNumberValid(i_Number))
             {
                 return -1;
             }
 
+            int digitsCount = 0;
             int firstDigit = (int)char.GetNumericValue(i_Number[0]);
             for (int i = 1; i < 7; i++)
             {
@@ -39,12 +39,12 @@ namespace Ex01_5
 
         public static int HowManyDigitsDevideByThree(string i_Number)
         {
-            int digitsCount = 0;
             if (!IsNumberValid(i_Number))
             {
                 return -1;
             }
 
+            int digitsCount = 0;
             for (int i = 0; i < 7; i++)
             {
                 int currentDigit = (int)char.GetNumericValue(i_Number[i]);
