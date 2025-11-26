@@ -36,19 +36,15 @@ namespace Ex01_4
 
         public static bool CanBeDevidedByThree(string i_String)
         {
-            if (!IsAllNumbers(i_String))
+            bool parseSuccess = long.TryParse(i_String, out long number);
+
+            if (!parseSuccess)
             {
                 Console.WriteLine("Error: The string provided is not all numbers");
                 return false;
             }
 
-            int sumOfDigits = 0;
-            for (int i = 0; i < i_String.Length; i++)
-            {
-                sumOfDigits += (int)char.GetNumericValue(i_String[i]);
-            }
-
-            return sumOfDigits % 3 == 0;
+            return number % 3 == 0;
         }
 
         public static bool IsAllAlphabets(string i_String)
