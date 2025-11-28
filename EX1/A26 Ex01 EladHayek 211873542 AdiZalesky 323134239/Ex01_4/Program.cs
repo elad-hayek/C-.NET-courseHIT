@@ -7,19 +7,20 @@ namespace Ex01_4
         public static void Main()
         {
             string userInput;
+
             do
             {
                 Console.WriteLine("Please enter an alphanumeric string of exactly 10 characters:");
                 userInput = Console.ReadLine();
-
             }
             while (!StringUtilities.IsStringValid(userInput));
 
             bool isPalindrome = StringUtilities.IsPalindromeRecursive(userInput);
-            Console.WriteLine(string.Format("Is a palindrome: {0}", isPalindrome));
-
             bool isAllNumbers = StringUtilities.IsAllNumbers(userInput);
             bool isAllAlphabets = StringUtilities.IsAllAlphabets(userInput);
+
+            Console.WriteLine(string.Format("Is a palindrome: {0}", isPalindrome));
+
             if (isAllNumbers)
             {
                 bool canBeDevidedByThree = StringUtilities.CanBeDevidedByThree(userInput);
@@ -32,7 +33,6 @@ namespace Ex01_4
                 Console.WriteLine(string.Format("Number of lowercase letters: {0}", lowercaseCount));
                 Console.WriteLine(string.Format("Is in alphabetical ascending order: {0}", isInAscendingOrder));
             }
-
         }
     }
 
