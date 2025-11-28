@@ -8,16 +8,16 @@ namespace Ex01_5
         public static void Main()
         {
             string userInput;
+
             do
             {
                 Console.WriteLine("Please enter a whole number of exactly 7 digits:");
                 userInput = Console.ReadLine();
-
             }
             while (!NumberUtilities.IsNumberValid(userInput));
 
-            int graterThanFirstDigitCount = NumberUtilities.HowManyDigitsAreGreaterThanTheFirstDigit(userInput);
-            Console.WriteLine(string.Format("Number of digits greater than the first digit: {0}", graterThanFirstDigitCount));
+            int greaterThanFirstDigitCount = NumberUtilities.HowManyDigitsAreGreaterThanTheFirstDigit(userInput);
+            Console.WriteLine(string.Format("Number of digits greater than the first digit: {0}", greaterThanFirstDigitCount));
 
             int digitsDividedByThreeCount = NumberUtilities.HowManyDigitsDevideByThree(userInput);
             Console.WriteLine(string.Format("Number of digits that can be divided by 3: {0}", digitsDividedByThreeCount));
@@ -26,7 +26,9 @@ namespace Ex01_5
             Console.WriteLine(string.Format("The largest difference between two digits is: {0}", largestDifference));
 
             int mostCommonDigit = NumberUtilities.GetTheMostCommonDigit(userInput, out int mostCommonDigitOccurrences);
-            Console.WriteLine(string.Format("The most common digit is: {0} (appears {1} times)", mostCommonDigit, mostCommonDigitOccurrences));
+            Console.WriteLine(string.Format("The most common digit is: {0} (appears {1} times)",
+                                mostCommonDigit,
+                                mostCommonDigitOccurrences));
         }
     }
 }
