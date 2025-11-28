@@ -1,0 +1,10 @@
+==========================Exercise Checking Report==========================
+Exercise No...........: 1
+First Student Details.: 211873542 - Elad Hayek
+Second Student Details: 323134239 - Adi Zalesky
+Delivery Date.........: 30 - November - 2025
+Delivered In Delay....: No
+Delay Reason..........: 
+Visual Studio Version.: 2022
+Comments..............: 
+========================End Exercise Checking Report========================
