@@ -11,6 +11,7 @@ namespace Ex01_3
             string userInput;
             int numberOfLines = 0;
             bool numberOfLinesParseResult = false;
+
             do
             {
                 Console.WriteLine("Please enter the tree height it should be between 4 and 15:");
@@ -20,6 +21,7 @@ namespace Ex01_3
             while (!numberOfLinesParseResult || (numberOfLines < 4 || numberOfLines > 15));
 
             TreeBuilder treeBuilder = new TreeBuilder();
+
             treeBuilder.TryBuildTreeString(numberOfLines, out string treeString);
             Console.WriteLine(treeString);
         }
