@@ -16,7 +16,8 @@ namespace Ex01_5
             }
             else
             {
-                isValid =  int.TryParse(i_Number, out int number);
+                isValid = int.TryParse(i_Number, out int number);
+
                 if (!isValid)
                 {
                     Console.WriteLine("Error: The string provided is not a valid whole number");
