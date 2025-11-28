@@ -16,9 +16,7 @@ namespace Ex01_1
 
                 do
                 {
-                    Console.Write(
-                        string.Format("Enter binary byte number {0} (8 bits): ", i + 1));
-
+                    Console.Write(string.Format("Enter binary byte number {0} (8 bits): ", i + 1));
                     input = Console.ReadLine();
                     isInputValid = BinaryByteNumber.ValidateString(input);
 
@@ -30,8 +28,7 @@ namespace Ex01_1
                 while (!isInputValid);
 
                 BinaryByteNumber binaryByteNumber = new BinaryByteNumber(input);
-                addBinaryByteNumberOperationSucceeded =
-                    binaryByteNumberGroup.AddBinaryByteNumber(binaryByteNumber, i);
+                addBinaryByteNumberOperationSucceeded = binaryByteNumberGroup.AddBinaryByteNumber(binaryByteNumber, i);
 
                 if (!addBinaryByteNumberOperationSucceeded)
                 {

@@ -35,7 +35,6 @@ namespace Ex01_1
             }
 
             float averageOfDecimalNumbers = sumOfDecimalNumbers / m_BinaryByteNumbers.Length;
-
             Console.WriteLine("Average: {0:F2}", averageOfDecimalNumbers);
         }
 
@@ -63,19 +62,17 @@ namespace Ex01_1
             }
 
             stringBuilder.Append(")");
-
             Console.WriteLine(string.Format(stringBuilder.ToString(), numberOfPalindromes));
         }
 
         public void PrintNumbersInAscendingOrder()
         {
-            Array.Sort(
-                m_BinaryByteNumbers,
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.Append("Decimal numbers in ascending order: ");
+            Array.Sort(m_BinaryByteNumbers,
                 (i_First, i_Second) =>
                     i_First.GetDecimalValue().CompareTo(i_Second.GetDecimalValue()));
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("Decimal numbers in ascending order: ");
 
             for (int i = 0; i < m_BinaryByteNumbers.Length; i++)
             {
@@ -92,22 +89,19 @@ namespace Ex01_1
 
         public void PrintShortestConsecutiveBitsCounts()
         {
-            int shortestConsecutiveBitsCount =
-                m_BinaryByteNumbers[0].GetShortestConsecutiveBitsCount();
-
             StringBuilder stringBuilder = new StringBuilder();
+            int shortestConsecutiveBitsCount = m_BinaryByteNumbers[0].GetShortestConsecutiveBitsCount();
+
             stringBuilder.Append("Shortest bit sequence: {0} (");
 
             for (int i = 1; i < m_BinaryByteNumbers.Length; i++)
             {
                 BinaryByteNumber binaryByteNumber = m_BinaryByteNumbers[i];
-                int currentBinaryNumberShortestConsecutiveBitsCount =
-                    binaryByteNumber.GetShortestConsecutiveBitsCount();
+                int currentBinaryNumberShortestConsecutiveBitsCount = binaryByteNumber.GetShortestConsecutiveBitsCount();
 
                 if (currentBinaryNumberShortestConsecutiveBitsCount < shortestConsecutiveBitsCount)
                 {
-                    shortestConsecutiveBitsCount =
-                        currentBinaryNumberShortestConsecutiveBitsCount;
+                    shortestConsecutiveBitsCount = currentBinaryNumberShortestConsecutiveBitsCount;
                 }
             }
 
@@ -117,8 +111,7 @@ namespace Ex01_1
             {
                 BinaryByteNumber binaryByteNumber = m_BinaryByteNumbers[i];
 
-                if (shortestConsecutiveBitsCount ==
-                    binaryByteNumber.GetShortestConsecutiveBitsCount())
+                if (shortestConsecutiveBitsCount == binaryByteNumber.GetShortestConsecutiveBitsCount())
                 {
                     if (numberOfBinaryNumbersWithShortestConsecutiveBitsCount > 0)
                     {
@@ -131,24 +124,18 @@ namespace Ex01_1
             }
 
             stringBuilder.Append(")");
-
-            Console.WriteLine(
-                string.Format(
-                    stringBuilder.ToString(),
-                    shortestConsecutiveBitsCount));
+            Console.WriteLine(string.Format(stringBuilder.ToString(), shortestConsecutiveBitsCount));
         }
 
         public void PrintMaximumDifferencesBetweenOnesAndZeros()
         {
             int maxDifference = m_BinaryByteNumbers[0].GetMaximumDifferenceBetweenOnesAndZeros();
-
             BinaryByteNumber maxDifferenceBinaryNumber = m_BinaryByteNumbers[0];
 
             for (int i = 1; i < m_BinaryByteNumbers.Length; i++)
             {
                 BinaryByteNumber binaryByteNumber = m_BinaryByteNumbers[i];
-                int currentDifference =
-                    binaryByteNumber.GetMaximumDifferenceBetweenOnesAndZeros();
+                int currentDifference = binaryByteNumber.GetMaximumDifferenceBetweenOnesAndZeros();
 
                 if (currentDifference > maxDifference)
                 {
@@ -156,8 +143,7 @@ namespace Ex01_1
                     maxDifferenceBinaryNumber = binaryByteNumber;
                 }
                 else if (currentDifference == maxDifference &&
-                         binaryByteNumber.GetDecimalValue() <
-                         maxDifferenceBinaryNumber.GetDecimalValue())
+                         binaryByteNumber.GetDecimalValue() < maxDifferenceBinaryNumber.GetDecimalValue())
                 {
                     maxDifferenceBinaryNumber = binaryByteNumber;
                 }
@@ -194,11 +180,7 @@ namespace Ex01_1
             }
 
             stringBuilder.Append(")");
-
-            Console.WriteLine(
-                string.Format(
-                    stringBuilder.ToString(),
-                    numberOfNumbersThatStartAndEndWithTheSameBit));
+            Console.WriteLine(string.Format(stringBuilder.ToString(), numberOfNumbersThatStartAndEndWithTheSameBit));
         }
     }
 }
