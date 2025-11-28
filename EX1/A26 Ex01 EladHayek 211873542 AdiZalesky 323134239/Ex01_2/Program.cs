@@ -7,6 +7,7 @@ namespace Ex01_2
         public static void Main()
         {
             TreeBuilder treeBuilder = new TreeBuilder();
+
             treeBuilder.TryBuildTreeString(7, out string treeString);
             Console.WriteLine(treeString);
         }
