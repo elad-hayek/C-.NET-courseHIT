@@ -10,7 +10,7 @@
         {
             get
             {
-                return r_BoardMatrix.GetLength(0);
+                return r_BoardMatrix.GetLength(1);
             }
         }
 
@@ -18,13 +18,13 @@
         {
             get
             {
-                return r_BoardMatrix.GetLength(1);
+                return r_BoardMatrix.GetLength(0);
             }
         }
 
-        public Board(int i_Width, int i_Height)
+        public Board(int i_Height, int i_Width)
         {
-            r_BoardMatrix = new GameChip?[i_Width, i_Height];
+            r_BoardMatrix = new GameChip?[i_Height, i_Width];
         }
 
         public GameChip? GetGameChipAt(int i_X, int i_Y)
@@ -73,7 +73,7 @@
 
         private bool ValidateColumnInRange(int i_Column)
         {
-            return i_Column >= 0 && i_Column < Width ;
+            return i_Column >= 0 && i_Column < Width;
         }
 
         private eGameError ValidateColumn(int i_Column)

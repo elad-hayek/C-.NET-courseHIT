@@ -4,7 +4,7 @@
     {
         private readonly char m_PlayerSymbol;
 
-        public int PlayerId
+        public char PlayerSymbol
         {
             get
             {

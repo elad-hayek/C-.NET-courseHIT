@@ -1,23 +1,40 @@
 ﻿using System;
+using System.Text;
 
 namespace Ex02_1
 {
-    public static class UIManager
+    public class UIManager
     {
-        public static void DisplayBoard(Board i_Board)
-        {
-            // TODO: Implement the method to display the board
+        private readonly StringBuilder r_StringBuilder = new StringBuilder();
 
-            //for (int i = 0; i < i_Board.Height; i++)
-            //{
-            //    for (int j = 0; j < i_Board.Width; j++)
-            //    {
-            //        GameChip? gameChip = i_Board.GetGameChipAt(j, i);
-            //        char symbolToDisplay = gameChip.HasValue ? gameChip.Value.PlayerId : '.';
-            //        System.Console.Write(symbolToDisplay + " ");
-            //    }
-            //    System.Console.WriteLine();
-            //}
+        public void DisplayBoard(Board i_Board)
+        {
+            r_StringBuilder.Clear();
+            Console.Clear();
+            int columnHeader = 'A';
+
+            for (int i = 0; i < i_Board.Width; i++)
+            {
+                r_StringBuilder.AppendFormat("  {0} ", (char)(columnHeader + i));
+            }
+
+            r_StringBuilder.Append(Environment.NewLine);
+
+            for (int i = 0; i < i_Board.Height; i++)
+            {
+                for (int j = 0; j < i_Board.Width; j++)
+                {
+                    r_StringBuilder.Append("| ");
+                    GameChip? gameChip = i_Board.GetGameChipAt(i, j);
+                    r_StringBuilder.Append(gameChip?.PlayerSymbol.ToString() ?? " ");
+                    r_StringBuilder.Append(" ");
+                }
+                r_StringBuilder.Append("|");
+                r_StringBuilder.AppendLine();
+                r_StringBuilder.AppendLine(new string('=', i_Board.Width * 3 + i_Board.Width + 1));
+            }
+
+            Console.WriteLine(r_StringBuilder.ToString());
         }
 
         private static int GetBoardDimention(string i_DimentionName)
@@ -53,7 +70,7 @@ namespace Ex02_1
 
         public static int GetBoardWidth()
         {
-           return GetBoardDimention("width");
+            return GetBoardDimention("width");
         }
 
         public static int GetBoardHeight()
@@ -88,7 +105,7 @@ namespace Ex02_1
 
         public static void DisplayErrorMessage(eGameError i_GameError)
         {
-            switch(i_GameError)
+            switch (i_GameError)
             {
                 case eGameError.InvalidBoardDimensions:
                     Console.WriteLine("Error: Invalid board dimensions. Please enter values between 4 and 8.");
@@ -112,24 +129,45 @@ namespace Ex02_1
 
             while (!isValidInput)
             {
-                Console.Write("Please enter the column to place your chip: ");
+                Console.Write("Please enter the column to place your chip (Ex: A, B ...): ");
                 string userInput = Console.ReadLine();
 
-                if(userInput == "Q")
+                if (userInput == "Q")
                 {
                     isValidInput = true;
                 }
-                else if (int.TryParse(userInput, out column) && column >= 0 && column < i_NumberOfColumns)
+                else if (ValidateColumnInput(userInput, i_NumberOfColumns, out column))
                 {
                     isValidInput = true;
                 }
                 else
                 {
-                    Console.WriteLine($"Invalid input. Please enter a number between 0 and {i_NumberOfColumns} or Q to forfit.");
+                    Console.WriteLine(
+                        $"Invalid input. Please enter a number between A and {(char)('A' + i_NumberOfColumns - 1)} or Q to forfit.");
                 }
             }
 
             return column;
+        }
+
+        private static bool ValidateColumnInput(string i_UserInput, int i_NumberOfColumns, out int o_Column)
+        {
+            o_Column = -1;
+            bool isValid = false;
+
+            if (!string.IsNullOrEmpty(i_UserInput) && i_UserInput.Length == 1)
+            {
+                char inputChar = char.ToUpper(i_UserInput[0]);
+                int columnIndex = inputChar - 'A';
+
+                if (columnIndex >= 0 && columnIndex < i_NumberOfColumns)
+                {
+                    o_Column = columnIndex;
+                    isValid = true;
+                }
+            }
+
+            return isValid;
         }
     }
 }

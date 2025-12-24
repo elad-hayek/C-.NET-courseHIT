@@ -10,21 +10,22 @@ namespace Ex02_1
         private List<Player> m_Players;
         private eGameMode m_GameMode;
         private bool m_IsGameOver;
-        private readonly Random m_Random;
+        private readonly Random r_Random;
+        private readonly UIManager r_UIManager;
 
         private GameManager()
         {
-            m_Random = new Random();
+            r_Random = new Random();
+            r_UIManager = new UIManager();
         }
 
         public static GameManager CreateGameManager()
         {
             GameManager gameManager = new GameManager();
             gameManager.InitializePlayers();
-            int boardWidth = UIManager.GetBoardWidth();
             int boardHeight = UIManager.GetBoardHeight();
-
-            gameManager.r_Board = new Board(boardWidth, boardHeight);
+            int boardWidth = UIManager.GetBoardWidth();
+            gameManager.r_Board = new Board(boardHeight, boardWidth);
             return gameManager;
         }
 
@@ -38,11 +39,14 @@ namespace Ex02_1
         public void StartGame()
         {
             m_GameMode = UIManager.GetGameMode();
+            r_UIManager.DisplayBoard(r_Board);
 
             while (!m_IsGameOver)
             {
                 UpdateGame();
             }
+
+            // TODO: add logic for displaying final results and update score
         }
 
         public void UpdateGame()
@@ -51,7 +55,7 @@ namespace Ex02_1
             {
                 if (m_GameMode == eGameMode.PlayerVsComputer)
                 {
-                    if(player == m_Players[0])
+                    if (player == m_Players[0])
                     {
                         SetPlayerChip(player);
                     }
@@ -60,12 +64,12 @@ namespace Ex02_1
                         SetComputerChip(player);
                     }
                 }
-                else if(m_GameMode == eGameMode.PlayerVsPlayer)
+                else if (m_GameMode == eGameMode.PlayerVsPlayer)
                 {
                     SetPlayerChip(player);
                 }
 
-                UIManager.DisplayBoard(r_Board);
+                r_UIManager.DisplayBoard(r_Board);
                 CheckIfGameOver();
 
                 if (m_IsGameOver)
@@ -79,13 +83,15 @@ namespace Ex02_1
         {
             bool isValidPlacement = false;
 
-            while(!isValidPlacement && !m_IsGameOver)
+            while (!isValidPlacement && !m_IsGameOver)
             {
                 int columnPlacement = UIManager.GetUserChipColumnPlacment(r_Board.Width);
 
                 if (columnPlacement == -1)
                 {
+                    // TODO: handle user quit action, add score to the opponent
                     m_IsGameOver = true;
+                    break;
                 }
 
                 eGameError gameError = r_Board.SetGameChipAt(columnPlacement, new GameChip(i_Player.PlayerSymbol));
@@ -108,7 +114,7 @@ namespace Ex02_1
             while (!isValidPlacement && !m_IsGameOver)
             {
                 // TODO: Improve computer logic
-                int columnPlacement = m_Random.Next();
+                int columnPlacement = r_Random.Next(0, r_Board.Width - 1);
 
                 eGameError gameError = r_Board.SetGameChipAt(columnPlacement, new GameChip(i_ComputerPlayer.PlayerSymbol));
                 if (gameError == eGameError.NoError)
