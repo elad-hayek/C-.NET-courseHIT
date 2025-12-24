@@ -36,7 +36,7 @@
         {
             eGameError error = ValidateColumn(i_Column);
 
-            if(error == eGameError.NoError)
+            if (error == eGameError.NoError)
             {
                 int nextEmptyRow = GetFirstEmptyRowInColumn(i_Column);
                 r_BoardMatrix[nextEmptyRow, i_Column] = i_GameChip;
@@ -81,7 +81,7 @@
             bool isVald = ValidateColumnInRange(i_Column);
             eGameError gameError = eGameError.NoError;
 
-            if(!isVald)
+            if (!isVald)
             {
                 gameError = eGameError.InvalidColumn;
             }
@@ -91,6 +91,89 @@
             }
 
             return gameError;
+        }
+
+        public bool IsBoardFull()
+        {
+            bool isFull = true;
+
+            for (int col = 0; col < Width; col++)
+            {
+                if (r_BoardMatrix[0, col] == null)
+                {
+                    isFull = false;
+                    break;
+                }
+            }
+
+            return isFull;
+        }
+
+        public bool CheckBoardForFourInARow(char i_PlayerSymbol)
+        {
+            bool isFourInARow = false;
+
+            for (int row = 0; row < Height; row++)
+            {
+                for (int col = 0; col < Width; col++)
+                {
+                    if (CheckDirection(row, col, 0, 1, i_PlayerSymbol) || // Horizontal
+                        CheckDirection(row, col, 1, 0, i_PlayerSymbol) || // Vertical
+                        CheckDirection(row, col, 1, 1, i_PlayerSymbol) || // Diagonal down-right
+                        CheckDirection(row, col, 1, -1, i_PlayerSymbol))  // Diagonal down-left
+                    {
+                        isFourInARow = true;
+                        break;
+                    }
+                }
+
+                if (isFourInARow)
+                {
+                    break;
+                }
+            }
+
+            return isFourInARow;
+        }
+
+        private bool CheckDirection(int i_StartRow, int i_StartCol, int i_DeltaRow, int i_DeltaCol, char i_PlayerSymbol)
+        {
+            int count = 0;
+
+            for (int i = 0; i < 4; i++)
+            {
+                int row = i_StartRow + i * i_DeltaRow;
+                int col = i_StartCol + i * i_DeltaCol;
+
+                if (row < 0 || row >= Height || col < 0 || col >= Width)
+                {
+                    return false;
+                }
+
+                GameChip? gameChip = r_BoardMatrix[row, col];
+
+                if (gameChip != null && gameChip.Value.PlayerSymbol == i_PlayerSymbol)
+                {
+                    count++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return count == 4;
+        }
+
+        public void ClearBoard()
+        {
+            for (int row = 0; row < Height; row++)
+            {
+                for (int col = 0; col < Width; col++)
+                {
+                    r_BoardMatrix[row, col] = null;
+                }
+            }
         }
     }
 }

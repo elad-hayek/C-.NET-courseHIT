@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Ex02_1
@@ -20,12 +21,12 @@ namespace Ex02_1
 
             r_StringBuilder.Append(Environment.NewLine);
 
-            for (int i = 0; i < i_Board.Height; i++)
+            for (int row = 0; row < i_Board.Height; row++)
             {
-                for (int j = 0; j < i_Board.Width; j++)
+                for (int col = 0; col < i_Board.Width; col++)
                 {
                     r_StringBuilder.Append("| ");
-                    GameChip? gameChip = i_Board.GetGameChipAt(i, j);
+                    GameChip? gameChip = i_Board.GetGameChipAt(row, col);
                     r_StringBuilder.Append(gameChip?.PlayerSymbol.ToString() ?? " ");
                     r_StringBuilder.Append(" ");
                 }
@@ -168,6 +169,64 @@ namespace Ex02_1
             }
 
             return isValid;
+        }
+
+        public static void DisplayScoreboard(List<Player> i_Players)
+        {
+            Console.WriteLine("Scoreboard:");
+
+            if (i_Players == null || i_Players.Count == 0)
+            {
+                Console.WriteLine("No players to display.");
+            }
+            else
+            {
+                foreach (Player player in i_Players)
+                {
+                    Console.WriteLine($"Player '{player.PlayerSymbol}': {player.Score} points");
+                }
+            }
+        }
+
+        public static void DisplayWinnerMessage(Player i_Winner)
+        {
+            if (i_Winner != null)
+            {
+                Console.WriteLine($"Player '{i_Winner.PlayerSymbol}' wins this round!");
+            }
+            else
+            {
+                Console.WriteLine("No winner found");
+            }
+        }
+
+        public static void DisplayDrawMessage()
+        {
+            Console.WriteLine("The game ended in a draw!");
+        }
+
+        public static bool AskUserToPlayAnotherRound()
+        {
+            bool isValidInput = false;
+            string userInput = Console.ReadLine();
+
+            while (!isValidInput)
+            {
+                Console.Write("Do you want to play another round? (Y/N): ");
+
+                if (!string.IsNullOrEmpty(userInput) &&
+                   (userInput.Equals("Y", StringComparison.OrdinalIgnoreCase) ||
+                    userInput.Equals("N", StringComparison.OrdinalIgnoreCase)))
+                {
+                    isValidInput = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter Y or N.");
+                }
+            }
+
+            return userInput.Equals("Y", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

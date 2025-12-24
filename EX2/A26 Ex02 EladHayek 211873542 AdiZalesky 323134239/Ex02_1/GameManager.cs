@@ -10,6 +10,7 @@ namespace Ex02_1
         private List<Player> m_Players;
         private eGameMode m_GameMode;
         private bool m_IsGameOver;
+        private bool m_HasPlayerQuit;
         private readonly Random r_Random;
         private readonly UIManager r_UIManager;
 
@@ -44,15 +45,38 @@ namespace Ex02_1
             while (!m_IsGameOver)
             {
                 UpdateGame();
-            }
 
-            // TODO: add logic for displaying final results and update score
+                if (m_IsGameOver)
+                {
+                    HandleEndOfRound();
+                }
+            }
+        }
+
+        private void HandleEndOfRound()
+        {
+            UIManager.DisplayScoreboard(m_Players);
+            bool wantAnotherRound = UIManager.AskUserToPlayAnotherRound();
+
+            if (wantAnotherRound)
+            {
+                r_Board.ClearBoard();
+                m_HasPlayerQuit = false;
+                m_IsGameOver = false;
+            }
         }
 
         public void UpdateGame()
         {
             foreach (Player player in m_Players)
             {
+                if (m_HasPlayerQuit) // flag to check if the previous player has quit
+                {
+                    SetWinner(player);
+                    UIManager.DisplayWinnerMessage(player);
+                    break;
+                }
+
                 if (m_GameMode == eGameMode.PlayerVsComputer)
                 {
                     if (player == m_Players[0])
@@ -70,13 +94,31 @@ namespace Ex02_1
                 }
 
                 r_UIManager.DisplayBoard(r_Board);
-                CheckIfGameOver();
 
-                if (m_IsGameOver)
+                if (m_HasPlayerQuit)
                 {
+                    continue;
+                }
+
+                if (r_Board.IsBoardFull())
+                {
+                    m_IsGameOver = true;
+                    UIManager.DisplayDrawMessage();
+                    break;
+                }
+                else if (CheckIfGameOver(player.PlayerSymbol))
+                {
+                    SetWinner(player);
+                    UIManager.DisplayWinnerMessage(player);
                     break;
                 }
             }
+        }
+
+        private void SetWinner(Player i_Winner)
+        {
+            i_Winner.Score++;
+            m_IsGameOver = true;
         }
 
         private void SetPlayerChip(Player i_Player)
@@ -89,8 +131,8 @@ namespace Ex02_1
 
                 if (columnPlacement == -1)
                 {
-                    // TODO: handle user quit action, add score to the opponent
                     m_IsGameOver = true;
+                    m_HasPlayerQuit = true;
                     break;
                 }
 
@@ -124,10 +166,9 @@ namespace Ex02_1
             }
         }
 
-        private bool CheckIfGameOver()
+        private bool CheckIfGameOver(char i_PlayerSymbol)
         {
-            // TODO: Implement game over logic
-            return false;
+            return r_Board.CheckBoardForFourInARow(i_PlayerSymbol);
         }
 
     }
