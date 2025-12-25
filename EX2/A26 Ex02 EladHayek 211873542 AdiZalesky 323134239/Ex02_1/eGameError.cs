@@ -1,5 +1,4 @@
-﻿
-namespace Ex02_1
+﻿namespace Ex02_1
 {
     public enum eGameError
     {

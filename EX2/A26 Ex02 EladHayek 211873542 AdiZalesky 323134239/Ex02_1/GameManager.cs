@@ -1,12 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Ex02_1
 {
     public class GameManager
     {
-        private Board r_Board;
+        private Board m_Board;
         private List<Player> m_Players;
         private eGameMode m_GameMode;
         private bool m_IsGameOver;
@@ -23,14 +22,14 @@ namespace Ex02_1
         public static GameManager CreateGameManager()
         {
             GameManager gameManager = new GameManager();
-            gameManager.InitializePlayers();
-            int boardHeight = UIManager.GetBoardHeight();
-            int boardWidth = UIManager.GetBoardWidth();
-            gameManager.r_Board = new Board(boardHeight, boardWidth);
+            gameManager.initializePlayers();
+            int boardHeight = gameManager.r_UIManager.GetBoardHeight();
+            int boardWidth = gameManager.r_UIManager.GetBoardWidth();
+            gameManager.m_Board = new Board(boardHeight, boardWidth);
             return gameManager;
         }
 
-        private void InitializePlayers()
+        private void initializePlayers()
         {
             m_Players = new List<Player>();
             m_Players.Add(new Player('X'));
@@ -39,8 +38,8 @@ namespace Ex02_1
 
         public void StartGame()
         {
-            m_GameMode = UIManager.GetGameMode();
-            r_UIManager.DisplayBoard(r_Board);
+            m_GameMode = r_UIManager.GetGameMode();
+            r_UIManager.DisplayBoard(m_Board);
 
             while (!m_IsGameOver)
             {
@@ -48,22 +47,22 @@ namespace Ex02_1
 
                 if (m_IsGameOver)
                 {
-                    HandleEndOfRound();
+                    handleEndOfRound();
                 }
             }
         }
 
-        private void HandleEndOfRound()
+        private void handleEndOfRound()
         {
-            UIManager.DisplayScoreboard(m_Players);
-            bool wantAnotherRound = UIManager.AskUserToPlayAnotherRound();
+            r_UIManager.DisplayScoreboard(m_Players);
+            bool wantAnotherRound = r_UIManager.AskUserToPlayAnotherRound();
 
             if (wantAnotherRound)
             {
-                r_Board.ClearBoard();
+                m_Board.ClearBoard();
                 m_HasPlayerQuit = false;
                 m_IsGameOver = false;
-                r_UIManager.DisplayBoard(r_Board);
+                r_UIManager.DisplayBoard(m_Board);
             }
         }
 
@@ -73,8 +72,8 @@ namespace Ex02_1
             {
                 if (m_HasPlayerQuit) // flag to check if the previous player has quit
                 {
-                    SetWinner(player);
-                    UIManager.DisplayWinnerMessage(player);
+                    setWinner(player);
+                    r_UIManager.DisplayWinnerMessage(player);
                     break;
                 }
 
@@ -82,53 +81,53 @@ namespace Ex02_1
                 {
                     if (player == m_Players[0])
                     {
-                        SetPlayerChip(player);
+                        setPlayerChip(player);
                     }
                     else
                     {
-                        SetComputerChip(player);
+                        setComputerChip(player);
                     }
                 }
                 else if (m_GameMode == eGameMode.PlayerVsPlayer)
                 {
-                    SetPlayerChip(player);
+                    setPlayerChip(player);
                 }
 
-                r_UIManager.DisplayBoard(r_Board);
+                r_UIManager.DisplayBoard(m_Board);
 
                 if (m_HasPlayerQuit)
                 {
                     continue;
                 }
 
-                if (r_Board.IsBoardFull())
+                if (m_Board.IsBoardFull())
                 {
                     m_IsGameOver = true;
-                    UIManager.DisplayDrawMessage();
+                    r_UIManager.DisplayDrawMessage();
                     break;
                 }
-                else if (CheckIfGameOver(player.PlayerSymbol))
+                else if (checkIfGameOver(player.PlayerSymbol))
                 {
-                    SetWinner(player);
-                    UIManager.DisplayWinnerMessage(player);
+                    setWinner(player);
+                    r_UIManager.DisplayWinnerMessage(player);
                     break;
                 }
             }
         }
 
-        private void SetWinner(Player i_Winner)
+        private void setWinner(Player i_Winner)
         {
             i_Winner.Score++;
             m_IsGameOver = true;
         }
 
-        private void SetPlayerChip(Player i_Player)
+        private void setPlayerChip(Player i_Player)
         {
             bool isValidPlacement = false;
 
             while (!isValidPlacement && !m_IsGameOver)
             {
-                int columnPlacement = UIManager.GetUserChipColumnPlacment(r_Board.Width, i_Player);
+                int columnPlacement = r_UIManager.GetUserChipColumnPlacement(m_Board.Width, i_Player);
 
                 if (columnPlacement == -1)
                 {
@@ -137,11 +136,11 @@ namespace Ex02_1
                     break;
                 }
 
-                eGameError gameError = r_Board.SetGameChipAt(columnPlacement, new GameChip(i_Player.PlayerSymbol));
+                eGameError gameError = m_Board.SetGameChipAt(columnPlacement, new GameChip(i_Player.PlayerSymbol));
 
                 if (gameError != eGameError.NoError)
                 {
-                    UIManager.DisplayErrorMessage(gameError);
+                    r_UIManager.DisplayErrorMessage(gameError);
                 }
                 else
                 {
@@ -150,15 +149,15 @@ namespace Ex02_1
             }
         }
 
-        private void SetComputerChip(Player i_ComputerPlayer)
+        private void setComputerChip(Player i_ComputerPlayer)
         {
             bool isValidPlacement = false;
 
             while (!isValidPlacement && !m_IsGameOver)
             {
-                int columnPlacement = GetBestComputerMove(i_ComputerPlayer);
+                int columnPlacement = getBestComputerMove(i_ComputerPlayer);
+                eGameError gameError = m_Board.SetGameChipAt(columnPlacement, new GameChip(i_ComputerPlayer.PlayerSymbol));
 
-                eGameError gameError = r_Board.SetGameChipAt(columnPlacement, new GameChip(i_ComputerPlayer.PlayerSymbol));
                 if (gameError == eGameError.NoError)
                 {
                     isValidPlacement = true;
@@ -166,28 +165,28 @@ namespace Ex02_1
             }
         }
 
-        private int GetBestComputerMove(Player i_ComputerPlayer)
+        private int getBestComputerMove(Player i_ComputerPlayer)
         {
             char computerSymbol = i_ComputerPlayer.PlayerSymbol;
             char playerSymbol = m_Players[0].PlayerSymbol;
             int columnToPlay = -1;
 
             // Check if computer can win
-            for (int col = 0; col < r_Board.Width; col++)
+            for (int col = 0; col < m_Board.Width; col++)
             {
-                if (r_Board.IsValidMove(col) && r_Board.WouldWin(col, computerSymbol))
+                if (m_Board.IsValidMove(col) && m_Board.WouldWin(col, computerSymbol))
                 {
                     columnToPlay = col;
                     break;
                 }
             }
 
-            if(columnToPlay == -1)
+            if (columnToPlay == -1)
             {
                 // Block player from winning
-                for (int col = 0; col < r_Board.Width; col++)
+                for (int col = 0; col < m_Board.Width; col++)
                 {
-                    if (r_Board.IsValidMove(col) && r_Board.WouldWin(col, playerSymbol))
+                    if (m_Board.IsValidMove(col) && m_Board.WouldWin(col, playerSymbol))
                     {
                         columnToPlay = col;
                         break;
@@ -195,19 +194,19 @@ namespace Ex02_1
                 }
             }
 
-            if(columnToPlay == -1)
+            if (columnToPlay == -1)
             {
                 // Random move
-                columnToPlay = r_Random.Next(0, r_Board.Width - 1);
+                List<int> validColumns = m_Board.GetValidColumnsInBoard();
+                columnToPlay = validColumns[r_Random.Next(validColumns.Count)];
             }
 
             return columnToPlay;
         }
 
-        private bool CheckIfGameOver(char i_PlayerSymbol)
+        private bool checkIfGameOver(char i_PlayerSymbol)
         {
-            return r_Board.CheckBoardForFourInARow(i_PlayerSymbol);
+            return m_Board.CheckBoardForFourInARow(i_PlayerSymbol);
         }
-
     }
 }

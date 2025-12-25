@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Ex02_1
+﻿namespace Ex02_1
 {
     public class Player
     {

@@ -1,4 +1,6 @@
-﻿namespace Ex02_1
+﻿using System.Collections.Generic;
+
+namespace Ex02_1
 {
     public class Board
     {
@@ -27,25 +29,25 @@
             r_BoardMatrix = new GameChip?[i_Height, i_Width];
         }
 
-        public GameChip? GetGameChipAt(int i_X, int i_Y)
+        public GameChip? GetGameChipAt(int i_Row, int i_Column)
         {
-            return r_BoardMatrix[i_X, i_Y];
+            return r_BoardMatrix[i_Row, i_Column];
         }
 
         public eGameError SetGameChipAt(int i_Column, GameChip i_GameChip)
         {
-            eGameError error = ValidateColumn(i_Column);
+            eGameError error = validateColumn(i_Column);
 
             if (error == eGameError.NoError)
             {
-                int nextEmptyRow = GetFirstEmptyRowInColumn(i_Column);
+                int nextEmptyRow = getFirstEmptyRowInColumn(i_Column);
                 r_BoardMatrix[nextEmptyRow, i_Column] = i_GameChip;
             }
 
             return error;
         }
 
-        private int GetFirstEmptyRowInColumn(int i_Column)
+        private int getFirstEmptyRowInColumn(int i_Column)
         {
             int row = Height - 1;
 
@@ -57,9 +59,9 @@
             return row;
         }
 
-        public static eGameError ValidateBoardDimension(int i_DimentionValue)
+        public static eGameError ValidateBoardDimension(int i_DimensionValue)
         {
-            bool isValid = i_DimentionValue >= k_MinBoardDimension && i_DimentionValue <= k_MaxBoardDimension;
+            bool isValid = i_DimensionValue >= k_MinBoardDimension && i_DimensionValue <= k_MaxBoardDimension;
 
             eGameError gameError = eGameError.NoError;
 
@@ -71,17 +73,17 @@
             return gameError;
         }
 
-        private bool ValidateColumnInRange(int i_Column)
+        private bool validateColumnInRange(int i_Column)
         {
             return i_Column >= 0 && i_Column < Width;
         }
 
-        private eGameError ValidateColumn(int i_Column)
+        private eGameError validateColumn(int i_Column)
         {
-            bool isVald = ValidateColumnInRange(i_Column);
+            bool isValid = validateColumnInRange(i_Column);
             eGameError gameError = eGameError.NoError;
 
-            if (!isVald)
+            if (!isValid)
             {
                 gameError = eGameError.InvalidColumn;
             }
@@ -117,10 +119,10 @@
             {
                 for (int col = 0; col < Width; col++)
                 {
-                    if (CheckDirection(row, col, 0, 1, i_PlayerSymbol) || // Horizontal
-                        CheckDirection(row, col, 1, 0, i_PlayerSymbol) || // Vertical
-                        CheckDirection(row, col, 1, 1, i_PlayerSymbol) || // Diagonal down-right
-                        CheckDirection(row, col, 1, -1, i_PlayerSymbol))  // Diagonal down-left
+                    if (checkDirection(row, col, 0, 1, i_PlayerSymbol) || // Horizontal
+                        checkDirection(row, col, 1, 0, i_PlayerSymbol) || // Vertical
+                        checkDirection(row, col, 1, 1, i_PlayerSymbol) || // Diagonal down-right
+                        checkDirection(row, col, 1, -1, i_PlayerSymbol))  // Diagonal down-left
                     {
                         isFourInARow = true;
                         break;
@@ -136,7 +138,7 @@
             return isFourInARow;
         }
 
-        private bool CheckDirection(int i_StartRow, int i_StartCol, int i_DeltaRow, int i_DeltaCol, char i_PlayerSymbol)
+        private bool checkDirection(int i_StartRow, int i_StartCol, int i_DeltaRow, int i_DeltaCol, char i_PlayerSymbol)
         {
             int count = 0;
 
@@ -178,17 +180,38 @@
 
         public bool IsValidMove(int i_Column)
         {
-            return ValidateColumn(i_Column) == eGameError.NoError;
+            return validateColumn(i_Column) == eGameError.NoError;
         }
 
         public bool WouldWin(int i_Column, char i_PlayerSymbol)
         {
-            int targetRow = GetFirstEmptyRowInColumn(i_Column);
-            GameChip tempChip = new GameChip(i_PlayerSymbol);
-            r_BoardMatrix[targetRow, i_Column] = tempChip;
-            bool wouldWin = CheckBoardForFourInARow(i_PlayerSymbol);
-            r_BoardMatrix[targetRow, i_Column] = null;
+            int targetRow = getFirstEmptyRowInColumn(i_Column);
+            bool wouldWin = false;
+
+            if (targetRow != -1)
+            {
+                GameChip tempChip = new GameChip(i_PlayerSymbol);
+                r_BoardMatrix[targetRow, i_Column] = tempChip;
+                wouldWin = CheckBoardForFourInARow(i_PlayerSymbol);
+                r_BoardMatrix[targetRow, i_Column] = null;
+            }
+
             return wouldWin;
+        }
+
+        public List<int> GetValidColumnsInBoard()
+        {
+            List<int> validColumns = new List<int>();
+
+            for (int col = 0; col < Width; col++)
+            {
+                if (r_BoardMatrix[0, col] == null)
+                {
+                    validColumns.Add(col);
+                }
+            }
+
+            return validColumns;
         }
     }
 }

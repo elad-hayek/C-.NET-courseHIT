@@ -30,6 +30,7 @@ namespace Ex02_1
                     r_StringBuilder.Append(gameChip?.PlayerSymbol.ToString() ?? " ");
                     r_StringBuilder.Append(" ");
                 }
+
                 r_StringBuilder.Append("|");
                 r_StringBuilder.AppendLine();
                 r_StringBuilder.AppendLine(new string('=', i_Board.Width * 3 + i_Board.Width + 1));
@@ -38,14 +39,14 @@ namespace Ex02_1
             Console.WriteLine(r_StringBuilder.ToString());
         }
 
-        private static int GetBoardDimention(string i_DimentionName)
+        private int getBoardDimension(string i_DimensionName)
         {
             int dimension = 0;
             bool isValidInput = false;
 
             while (!isValidInput)
             {
-                Console.Write($"Please enter the board {i_DimentionName} (4-8): ");
+                Console.Write($"Please enter the board {i_DimensionName} (4-8): ");
                 string userInput = Console.ReadLine();
 
                 if (int.TryParse(userInput, out dimension))
@@ -58,7 +59,7 @@ namespace Ex02_1
                     }
                     else
                     {
-                        Console.WriteLine($"Invalid board {i_DimentionName}. Please try again.");
+                        Console.WriteLine($"Invalid board {i_DimensionName}. Please try again.");
                     }
                 }
                 else
@@ -66,20 +67,21 @@ namespace Ex02_1
                     Console.WriteLine("Invalid input. Please enter a number.");
                 }
             }
+
             return dimension;
         }
 
-        public static int GetBoardWidth()
+        public int GetBoardWidth()
         {
-            return GetBoardDimention("width");
+            return getBoardDimension("width");
         }
 
-        public static int GetBoardHeight()
+        public int GetBoardHeight()
         {
-            return GetBoardDimention("height");
+            return getBoardDimension("height");
         }
 
-        public static eGameMode GetGameMode()
+        public eGameMode GetGameMode()
         {
             int gameModeInput = 0;
             bool isValidInput = false;
@@ -104,7 +106,7 @@ namespace Ex02_1
             return gameMode;
         }
 
-        public static void DisplayErrorMessage(eGameError i_GameError)
+        public void DisplayErrorMessage(eGameError i_GameError)
         {
             switch (i_GameError)
             {
@@ -123,7 +125,7 @@ namespace Ex02_1
             }
         }
 
-        public static int GetUserChipColumnPlacment(int i_NumberOfColumns, Player i_Player)
+        public int GetUserChipColumnPlacement(int i_NumberOfColumns, Player i_Player)
         {
             int column = -1;
             bool isValidInput = false;
@@ -138,21 +140,21 @@ namespace Ex02_1
                 {
                     isValidInput = true;
                 }
-                else if (ValidateColumnInput(userInput, i_NumberOfColumns, out column))
+                else if (validateColumnInput(userInput, i_NumberOfColumns, out column))
                 {
                     isValidInput = true;
                 }
                 else
                 {
                     Console.WriteLine(
-                        $"Invalid input. Please enter a letter between A and {(char)('A' + i_NumberOfColumns - 1)} or Q to forfit.");
+                        $"Invalid input. Please enter a letter between A and {(char)('A' + i_NumberOfColumns - 1)} or Q to forfeit.");
                 }
             }
 
             return column;
         }
 
-        private static bool ValidateColumnInput(string i_UserInput, int i_NumberOfColumns, out int o_Column)
+        private bool validateColumnInput(string i_UserInput, int i_NumberOfColumns, out int o_Column)
         {
             o_Column = -1;
             bool isValid = false;
@@ -172,7 +174,7 @@ namespace Ex02_1
             return isValid;
         }
 
-        public static void DisplayScoreboard(List<Player> i_Players)
+        public void DisplayScoreboard(List<Player> i_Players)
         {
             Console.WriteLine("Scoreboard:");
 
@@ -189,7 +191,7 @@ namespace Ex02_1
             }
         }
 
-        public static void DisplayWinnerMessage(Player i_Winner)
+        public void DisplayWinnerMessage(Player i_Winner)
         {
             if (i_Winner != null)
             {
@@ -201,15 +203,15 @@ namespace Ex02_1
             }
         }
 
-        public static void DisplayDrawMessage()
+        public void DisplayDrawMessage()
         {
             Console.WriteLine("The game ended in a draw!");
         }
 
-        public static bool AskUserToPlayAnotherRound()
+        public bool AskUserToPlayAnotherRound()
         {
             bool isValidInput = false;
-            string userInput = null;
+            string userInput = string.Empty;
 
             while (!isValidInput)
             {
