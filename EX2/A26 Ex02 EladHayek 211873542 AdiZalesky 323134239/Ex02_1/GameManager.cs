@@ -131,7 +131,6 @@ namespace Ex02_1
 
                 if (columnPlacement == -1)
                 {
-                    m_IsGameOver = true;
                     m_HasPlayerQuit = true;
                     break;
                 }
