@@ -156,8 +156,7 @@ namespace Ex02_1
 
             while (!isValidPlacement && !m_IsGameOver)
             {
-                // TODO: Improve computer logic
-                int columnPlacement = r_Random.Next(0, r_Board.Width - 1);
+                int columnPlacement = GetBestComputerMove(i_ComputerPlayer);
 
                 eGameError gameError = r_Board.SetGameChipAt(columnPlacement, new GameChip(i_ComputerPlayer.PlayerSymbol));
                 if (gameError == eGameError.NoError)
@@ -165,6 +164,44 @@ namespace Ex02_1
                     isValidPlacement = true;
                 }
             }
+        }
+
+        private int GetBestComputerMove(Player i_ComputerPlayer)
+        {
+            char computerSymbol = i_ComputerPlayer.PlayerSymbol;
+            char playerSymbol = m_Players[0].PlayerSymbol;
+            int columnToPlay = -1;
+
+            // Check if computer can win
+            for (int col = 0; col < r_Board.Width; col++)
+            {
+                if (r_Board.IsValidMove(col) && r_Board.WouldWin(col, computerSymbol))
+                {
+                    columnToPlay = col;
+                    break;
+                }
+            }
+
+            if(columnToPlay == -1)
+            {
+                // Block player from winning
+                for (int col = 0; col < r_Board.Width; col++)
+                {
+                    if (r_Board.IsValidMove(col) && r_Board.WouldWin(col, playerSymbol))
+                    {
+                        columnToPlay = col;
+                        break;
+                    }
+                }
+            }
+
+            if(columnToPlay == -1)
+            {
+                // Random move
+                columnToPlay = r_Random.Next(0, r_Board.Width - 1);
+            }
+
+            return columnToPlay;
         }
 
         private bool CheckIfGameOver(char i_PlayerSymbol)

@@ -175,5 +175,20 @@
                 }
             }
         }
+
+        public bool IsValidMove(int i_Column)
+        {
+            return ValidateColumn(i_Column) == eGameError.NoError;
+        }
+
+        public bool WouldWin(int i_Column, char i_PlayerSymbol)
+        {
+            int targetRow = GetFirstEmptyRowInColumn(i_Column);
+            GameChip tempChip = new GameChip(i_PlayerSymbol);
+            r_BoardMatrix[targetRow, i_Column] = tempChip;
+            bool wouldWin = CheckBoardForFourInARow(i_PlayerSymbol);
+            r_BoardMatrix[targetRow, i_Column] = null;
+            return wouldWin;
+        }
     }
 }
