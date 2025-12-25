@@ -63,6 +63,7 @@ namespace Ex02_1
                 r_Board.ClearBoard();
                 m_HasPlayerQuit = false;
                 m_IsGameOver = false;
+                r_UIManager.DisplayBoard(r_Board);
             }
         }
 
@@ -127,7 +128,7 @@ namespace Ex02_1
 
             while (!isValidPlacement && !m_IsGameOver)
             {
-                int columnPlacement = UIManager.GetUserChipColumnPlacment(r_Board.Width);
+                int columnPlacement = UIManager.GetUserChipColumnPlacment(r_Board.Width, i_Player);
 
                 if (columnPlacement == -1)
                 {

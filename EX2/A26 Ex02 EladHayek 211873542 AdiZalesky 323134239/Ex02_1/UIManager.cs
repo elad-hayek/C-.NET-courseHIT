@@ -115,7 +115,7 @@ namespace Ex02_1
                     Console.WriteLine("Error: Invalid column. Please try again.");
                     break;
                 case eGameError.ColumnIsFull:
-                    Console.WriteLine("Error: column is full. Please choose another column.");
+                    Console.WriteLine("Column is full. Please choose another column.");
                     break;
                 default:
                     Console.WriteLine("An unknown error occurred.");
@@ -123,17 +123,18 @@ namespace Ex02_1
             }
         }
 
-        public static int GetUserChipColumnPlacment(int i_NumberOfColumns)
+        public static int GetUserChipColumnPlacment(int i_NumberOfColumns, Player i_Player)
         {
             int column = -1;
             bool isValidInput = false;
 
             while (!isValidInput)
             {
+                Console.WriteLine($"Player '{i_Player.PlayerSymbol}', it's your turn.");
                 Console.Write("Please enter the column to place your chip (Ex: A, B ...): ");
                 string userInput = Console.ReadLine();
 
-                if (userInput == "Q")
+                if (string.Equals(userInput, "Q", StringComparison.OrdinalIgnoreCase))
                 {
                     isValidInput = true;
                 }
@@ -144,7 +145,7 @@ namespace Ex02_1
                 else
                 {
                     Console.WriteLine(
-                        $"Invalid input. Please enter a number between A and {(char)('A' + i_NumberOfColumns - 1)} or Q to forfit.");
+                        $"Invalid input. Please enter a letter between A and {(char)('A' + i_NumberOfColumns - 1)} or Q to forfit.");
                 }
             }
 
@@ -208,11 +209,12 @@ namespace Ex02_1
         public static bool AskUserToPlayAnotherRound()
         {
             bool isValidInput = false;
-            string userInput = Console.ReadLine();
+            string userInput = null;
 
             while (!isValidInput)
             {
                 Console.Write("Do you want to play another round? (Y/N): ");
+                userInput = Console.ReadLine();
 
                 if (!string.IsNullOrEmpty(userInput) &&
                    (userInput.Equals("Y", StringComparison.OrdinalIgnoreCase) ||
