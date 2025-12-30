@@ -16,15 +16,12 @@
             }
         }
 
-        public float CurrentFuelLevel
+        public override void AddEnergy(float i_AmountToAdd, eFuelType? i_FuelType = null)
         {
-            get
-            {
-                return CurrentAvailableEnergy;
-            }
+            Refuel(i_AmountToAdd, i_FuelType);
         }
 
-        public void Refuel(float i_AmountToAdd, eFuelType i_FuelType)
+        private void Refuel(float i_AmountToAdd, eFuelType? i_FuelType)
         {
             // TODO: Implement proper exception handling for fuel type and capacity limits
         }

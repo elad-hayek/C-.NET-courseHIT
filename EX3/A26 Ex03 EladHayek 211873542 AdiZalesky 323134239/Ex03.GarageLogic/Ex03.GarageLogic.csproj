@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Car.cs" />
     <Compile Include="eCarColor.cs" />
+    <Compile Include="eEnergyKind.cs" />
     <Compile Include="eFuelType.cs" />
     <Compile Include="ElectricCar.cs" />
     <Compile Include="ElectricEnergySource.cs" />

@@ -7,11 +7,16 @@
 
         protected EnergySource() { }
 
-        public float RemainingEnergy
+        public float EnergyPercentage
         {
             get
             {
                 return m_RemainingEnergy;
+            }
+            set
+            {
+                // TODO: Add validation to ensure percentage is between 0 and 100
+                m_RemainingEnergy = value;
             }
         }
 
@@ -23,16 +28,19 @@
             }
             set
             {
+                // TODO: Add validation to ensure capacity is positive
                 m_MaxEnergyCapacity = value;
             }
         }
 
-        protected float CurrentAvailableEnergy
+        public float CurrentAvailableEnergy
         {
             get
             {
-                return RemainingEnergy * MaxEnergyCapacity;
+                return (EnergyPercentage / 100) * MaxEnergyCapacity;
             }
         }
+
+        public abstract void AddEnergy(float i_AmountToAdd, eFuelType? i_FuelType = null);
     }
 }
