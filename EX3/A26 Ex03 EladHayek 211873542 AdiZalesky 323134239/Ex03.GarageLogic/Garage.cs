@@ -16,6 +16,10 @@ namespace Ex03.GarageLogic
                 VehicleStatus = eVehicleStatus.Repaired
             };
 
+            testVehicle1.Vehicle.FuelType = eFuelType.Soler;
+            testVehicle1.Vehicle.EnergyPercentage = 33f;
+            testVehicle1.Vehicle.MaxEnergyCapacity = 30f;
+
             GarageVehicle testVehicle2 = new GarageVehicle(new FuelCar("34343-2345-678", "FuelCar"), "John Doe2", "050-1234567")
             {
                 VehicleStatus = eVehicleStatus.InRepair

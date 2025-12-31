@@ -62,22 +62,33 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void RefuelVehicle(GarageVehicle garageVehicle, eFuelType fuelType, float amountOfFuelToAdd)
-        {
-            // TODO: Implement refueling logic
-            throw new NotImplementedException();
-        }
-
-        public void RechargeVehicle(GarageVehicle i_GarageVehicle, float i_AmountOfFuelToAdd)
+        public void RefuelVehicle(GarageVehicle i_GarageVehicle, eFuelType i_FuelType, float i_AmountOfFuelToAdd)
         {
             if (i_GarageVehicle != null)
             {
-                if(i_GarageVehicle.Vehicle.EnergyKind != eEnergyKind.Electric)
+                if (i_GarageVehicle.Vehicle.EnergyKind != eEnergyKind.Fuel)
+                {
+                    throw new ArgumentException("The vehicle provided is not runing of fuel");
+                }
+
+                i_GarageVehicle.Vehicle.AddEnergy(i_AmountOfFuelToAdd, i_FuelType);
+            }
+            else
+            {
+                throw new ArgumentNullException("The vehicle provided was null");
+            }
+        }
+
+        public void RechargeVehicle(GarageVehicle i_GarageVehicle, float i_AmountOfMinutesToAdd)
+        {
+            if (i_GarageVehicle != null)
+            {
+                if (i_GarageVehicle.Vehicle.EnergyKind != eEnergyKind.Electric)
                 {
                     throw new ArgumentException("The vehicle provided is not electric");
                 }
 
-                i_GarageVehicle.Vehicle.AddEnergy(i_AmountOfFuelToAdd);
+                i_GarageVehicle.Vehicle.AddEnergy(i_AmountOfMinutesToAdd);
             }
             else
             {

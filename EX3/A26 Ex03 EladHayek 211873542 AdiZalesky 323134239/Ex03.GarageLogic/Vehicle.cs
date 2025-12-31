@@ -92,11 +92,19 @@ namespace Ex03.GarageLogic
                         fuelType = eFuelType.None;
                         break;
                     default:
-                        // TODO: implement proper exception handling
-                        throw new System.Exception("Unknown energy kind");
+                        throw new Exception("Unknown energy kind");
                 }
 
                 return fuelType;
+            }
+            set
+            {
+                if(m_EnergyKind != eEnergyKind.Fuel)
+                {
+                    throw new InvalidOperationException("Cannot set fuel type for non fuel vehicles");
+                }
+
+                ((FuelEnergySource)m_EnergySource).FuelType = value;
             }
         }
 
@@ -111,7 +119,7 @@ namespace Ex03.GarageLogic
         public void AddEnergy(float i_AmountToAdd, eFuelType? i_FuelType = null)
         {
             if (m_EnergySource == null)
-            { 
+            {
                 throw new NullReferenceException("Energy source is not initialized");
             }
 

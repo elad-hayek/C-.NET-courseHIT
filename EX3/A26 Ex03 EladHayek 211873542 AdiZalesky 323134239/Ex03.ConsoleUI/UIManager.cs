@@ -209,7 +209,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private string GetFuelTypeMenu()
+        private string getFuelTypeMenu()
         {
             r_StringBuilder.Clear();
             r_StringBuilder.AppendLine("Choose fuel type:");
@@ -240,13 +240,12 @@ namespace Ex03.ConsoleUI
             try
             {
                 GarageVehicle garageVehicle = getGarageVehicleFromUser();
-                Console.WriteLine(GetFuelTypeMenu());
+                Console.WriteLine(getFuelTypeMenu());
                 string fuelTypeInput = Console.ReadLine();
                 eFuelType fuelType = parseFuelType(fuelTypeInput);
                 float amountOfFuelToAdd = getAmountOfEnergyFromUser("liters");
                 r_GarageManager.RefuelVehicle(garageVehicle, fuelType, amountOfFuelToAdd);
-                Console.WriteLine($"{amountOfFuelToAdd} was added to the car's fuel tank");
-
+                Console.WriteLine($"{amountOfFuelToAdd} liters were added to the car's fuel tank");
             }
             catch (Exception exception)
             {
@@ -261,7 +260,7 @@ namespace Ex03.ConsoleUI
                 GarageVehicle garageVehicle = getGarageVehicleFromUser();
                 float amountOfMinutesToAdd = getAmountOfEnergyFromUser("minutes");
                 r_GarageManager.RechargeVehicle(garageVehicle, amountOfMinutesToAdd);
-                Console.WriteLine($"{amountOfMinutesToAdd} was added to the car's battery");
+                Console.WriteLine($"{amountOfMinutesToAdd} minutes were added to the car's battery");
             }
             catch (Exception exception)
             {
