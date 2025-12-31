@@ -5,9 +5,17 @@ namespace Ex03.GarageLogic
     public abstract class EnergySource
     {
         protected float m_RemainingEnergy;
-        private float m_MaxEnergyCapacity;
+        private readonly float r_MaxEnergyCapacity;
 
-        protected EnergySource() { }
+        protected EnergySource(float i_MaxCapacity)
+        {
+            if (i_MaxCapacity <= 0)
+            {
+                throw new ValueRangeException("Max energy capacity", 0.1f, float.MaxValue);
+            }
+
+            r_MaxEnergyCapacity = i_MaxCapacity;
+        }
 
         public float EnergyPercentage
         {
@@ -17,7 +25,7 @@ namespace Ex03.GarageLogic
             }
             set
             {
-                if(value < 0 || value > 100)
+                if (value < 0 || value > 100)
                 {
                     throw new ValueRangeException("Energy Percentage", 0, 100);
                 }
@@ -30,16 +38,7 @@ namespace Ex03.GarageLogic
         {
             get
             {
-                return m_MaxEnergyCapacity;
-            }
-            set
-            {
-                if(value <= 0)
-                {
-                    throw new ValueRangeException("Max Energy Capacity", 0.1f, float.MaxValue);
-                }
-
-                m_MaxEnergyCapacity = value;
+                return r_MaxEnergyCapacity;
             }
         }
 

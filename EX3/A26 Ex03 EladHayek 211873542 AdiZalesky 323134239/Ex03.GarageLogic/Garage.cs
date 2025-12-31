@@ -16,9 +16,7 @@ namespace Ex03.GarageLogic
                 VehicleStatus = eVehicleStatus.Repaired
             };
 
-            testVehicle1.Vehicle.FuelType = eFuelType.Soler;
             testVehicle1.Vehicle.EnergyPercentage = 33f;
-            testVehicle1.Vehicle.MaxEnergyCapacity = 30f;
 
             GarageVehicle testVehicle2 = new GarageVehicle(new FuelCar("34343-2345-678", "FuelCar"), "John Doe2", "050-1234567")
             {
@@ -31,12 +29,16 @@ namespace Ex03.GarageLogic
             };
 
             testVehicle3.Vehicle.EnergyPercentage = 25f;
-            testVehicle3.Vehicle.MaxEnergyCapacity = 4.2f;
 
-            GarageVehicle testVehicle4 = new GarageVehicle(new FuelMotorcycle("85322-435-11111", "FuelMotorcycle"), "John Doe4", "050-1234567")
+            GarageVehicle testVehicle4 = new GarageVehicle(new FuelMotorcycle("333", "FuelMotorcycle"), "John Doe4", "050-1234567")
             {
                 VehicleStatus = eVehicleStatus.Paid
             };
+
+            foreach(Wheel wheel in testVehicle4.Vehicle.Wheels)
+            {
+                wheel.Inflate(15f);
+            }
 
             AddGarageVehicle(testVehicle1);
             AddGarageVehicle(testVehicle2);

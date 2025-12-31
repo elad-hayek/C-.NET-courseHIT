@@ -83,7 +83,7 @@ namespace Ex03.ConsoleUI
                     changeVehicleStatus();
                     break;
                 case eMenuOption.InflateTiresToMax:
-                    // Inflate tires logic
+                    inflateTiresToMax();
                     break;
                 case eMenuOption.RefuelVehicle:
                     refuelVehicle();
@@ -261,6 +261,20 @@ namespace Ex03.ConsoleUI
                 float amountOfMinutesToAdd = getAmountOfEnergyFromUser("minutes");
                 r_GarageManager.RechargeVehicle(garageVehicle, amountOfMinutesToAdd);
                 Console.WriteLine($"{amountOfMinutesToAdd} minutes were added to the car's battery");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"Error: {exception.Message}");
+            }
+        }
+
+        private void inflateTiresToMax()
+        {
+            try
+            {
+                GarageVehicle garageVehicle = getGarageVehicleFromUser();
+                r_GarageManager.InflateTiresToMax(garageVehicle);
+                Console.WriteLine("All tires were inflated to maximum pressure.");
             }
             catch (Exception exception)
             {

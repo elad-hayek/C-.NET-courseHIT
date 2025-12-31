@@ -7,6 +7,16 @@ namespace Ex03.GarageLogic
     {
         private eFuelType m_FuelType;
 
+        public FuelEnergySource(eFuelType i_FuelType, float i_MaxEnergyCapacity) : base(i_MaxEnergyCapacity)
+        {
+            if (i_FuelType == eFuelType.None)
+            {
+                throw new ArgumentException("Fuel type cannot be None for a fuel energy source.");
+            }
+
+            m_FuelType = i_FuelType;
+        }
+
         public eFuelType FuelType
         {
             get
@@ -31,6 +41,11 @@ namespace Ex03.GarageLogic
 
         private void refuel(float i_AmountOfLitersToAdd, eFuelType i_FuelType)
         {
+            if( i_AmountOfLitersToAdd <= 0)
+            {
+                throw new ValueRangeException("Amount of fuel to add", 0.1f, MaxEnergyCapacity - CurrentAvailableEnergy);
+            }
+
             if (CurrentAvailableEnergy + i_AmountOfLitersToAdd > MaxEnergyCapacity)
             {
                 throw new ValueRangeException("Fuel tank capacity", 0, MaxEnergyCapacity);

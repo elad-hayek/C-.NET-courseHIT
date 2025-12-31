@@ -34,13 +34,17 @@ namespace Ex03.GarageLogic
 
         public Wheel[] Wheels
         {
-            // TODO: implemet wheel logic
             get
             {
                 return m_Wheels;
             }
             set
             {
+                if (value == null || value.Length == 0)
+                {
+                    throw new ArgumentException("Wheels cannot be null or empty");
+                }
+
                 m_Wheels = value;
             }
         }
@@ -62,10 +66,6 @@ namespace Ex03.GarageLogic
             get
             {
                 return m_EnergySource.MaxEnergyCapacity;
-            }
-            set
-            {
-                m_EnergySource.MaxEnergyCapacity = value;
             }
         }
 
@@ -97,15 +97,6 @@ namespace Ex03.GarageLogic
 
                 return fuelType;
             }
-            set
-            {
-                if(m_EnergyKind != eEnergyKind.Fuel)
-                {
-                    throw new InvalidOperationException("Cannot set fuel type for non fuel vehicles");
-                }
-
-                ((FuelEnergySource)m_EnergySource).FuelType = value;
-            }
         }
 
         public eEnergyKind EnergyKind
@@ -124,6 +115,14 @@ namespace Ex03.GarageLogic
             }
 
             m_EnergySource.AddEnergy(i_AmountToAdd, i_FuelType);
+        }
+
+        public void InflateTiresToMax()
+        {
+            foreach (Wheel wheel in m_Wheels)
+            {
+                wheel.InflateToMax();
+            }
         }
     }
 }

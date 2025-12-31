@@ -7,6 +7,12 @@
 
         protected Motorcycle(string i_LicenseID, string i_ModelName) : base(i_LicenseID, i_ModelName)
         {
+            Wheels = new Wheel[2];
+
+            for (int i = 0; i < Wheels.Length; i++)
+            {
+                Wheels[i] = new Wheel(29f);
+            }
         }
 
         public eLicenseType LicenseType

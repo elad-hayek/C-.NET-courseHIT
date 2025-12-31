@@ -32,6 +32,12 @@
 
         protected Car(string i_LicenseID, string i_ModelName) : base(i_LicenseID, i_ModelName)
         {
+            Wheels = new Wheel[5];
+
+            for (int i = 0; i < Wheels.Length; i++)
+            {
+                Wheels[i] = new Wheel(33f);
+            }
         }
     }
 }

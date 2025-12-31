@@ -62,38 +62,44 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void RefuelVehicle(GarageVehicle i_GarageVehicle, eFuelType i_FuelType, float i_AmountOfFuelToAdd)
+        private bool validateAndThrowVehicleIsNotNull(GarageVehicle i_GarageVehicle)
         {
-            if (i_GarageVehicle != null)
-            {
-                if (i_GarageVehicle.Vehicle.EnergyKind != eEnergyKind.Fuel)
-                {
-                    throw new ArgumentException("The vehicle provided is not runing of fuel");
-                }
-
-                i_GarageVehicle.Vehicle.AddEnergy(i_AmountOfFuelToAdd, i_FuelType);
-            }
-            else
+            if (i_GarageVehicle == null)
             {
                 throw new ArgumentNullException("The vehicle provided was null");
             }
+
+            return true;
+        }
+
+        public void RefuelVehicle(GarageVehicle i_GarageVehicle, eFuelType i_FuelType, float i_AmountOfFuelToAdd)
+        {
+            validateAndThrowVehicleIsNotNull(i_GarageVehicle);
+
+            if (i_GarageVehicle.Vehicle.EnergyKind != eEnergyKind.Fuel)
+            {
+                throw new ArgumentException("The vehicle provided is not runing of fuel");
+            }
+
+            i_GarageVehicle.Vehicle.AddEnergy(i_AmountOfFuelToAdd, i_FuelType);
         }
 
         public void RechargeVehicle(GarageVehicle i_GarageVehicle, float i_AmountOfMinutesToAdd)
         {
-            if (i_GarageVehicle != null)
-            {
-                if (i_GarageVehicle.Vehicle.EnergyKind != eEnergyKind.Electric)
-                {
-                    throw new ArgumentException("The vehicle provided is not electric");
-                }
+            validateAndThrowVehicleIsNotNull(i_GarageVehicle);
 
-                i_GarageVehicle.Vehicle.AddEnergy(i_AmountOfMinutesToAdd);
-            }
-            else
+            if (i_GarageVehicle.Vehicle.EnergyKind != eEnergyKind.Electric)
             {
-                throw new ArgumentNullException("The vehicle provided was null");
+                throw new ArgumentException("The vehicle provided is not electric");
             }
+
+            i_GarageVehicle.Vehicle.AddEnergy(i_AmountOfMinutesToAdd);
+        }
+
+        public void InflateTiresToMax(GarageVehicle i_GarageVehicle)
+        {
+            validateAndThrowVehicleIsNotNull(i_GarageVehicle);
+            i_GarageVehicle.Vehicle.InflateTiresToMax();
         }
     }
 }

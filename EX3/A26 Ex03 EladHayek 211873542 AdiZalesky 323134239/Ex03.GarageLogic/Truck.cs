@@ -8,6 +8,12 @@ namespace Ex03.GarageLogic
 
         protected Truck(string i_LicenseID, string i_ModelName) : base(i_LicenseID, i_ModelName)
         {
+            Wheels = new Wheel[12];
+
+            for (int i = 0; i < Wheels.Length; i++)
+            {
+                Wheels[i] = new Wheel(26f);
+            }
         }
 
         public bool IsCarryingHazardousMaterials
