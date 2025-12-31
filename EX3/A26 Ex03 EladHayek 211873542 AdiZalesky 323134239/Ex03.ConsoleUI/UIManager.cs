@@ -80,7 +80,7 @@ namespace Ex03.ConsoleUI
                     displayLicenseNumbers();
                     break;
                 case eMenuOption.ChangeVehicleStatus:
-                    // Change vehicle status logic
+                    changeVehicleStatus();
                     break;
                 case eMenuOption.InflateTiresToMax:
                     // Inflate tires logic
@@ -111,22 +111,18 @@ namespace Ex03.ConsoleUI
             // Implementation for entering a new vehicle
         }
 
-        private eVehicleStatus? ParseVehicleStatus(string i_UserInput)
+        private eVehicleStatus ParseVehicleStatus(string i_UserInput)
         {
             if (int.TryParse(i_UserInput, out int vehicleStatusNumber) && vehicleStatusNumber >= 1 && vehicleStatusNumber <= 3)
             {
                 return (eVehicleStatus)vehicleStatusNumber;
             }
 
-            throw new FormatException("Invalid status. Please enter a number between 1 and 3.");
+            throw new FormatException("Invalid status number");
         }
 
         private void displayLicenseNumbers()
         {
-            //InRepair,
-            //Repaired,
-            //Paid
-
             r_StringBuilder.Clear();
             r_StringBuilder.AppendLine("Choose filter: ");
             r_StringBuilder.AppendLine("1. In repair");
@@ -171,6 +167,37 @@ namespace Ex03.ConsoleUI
             }
 
             Console.WriteLine(r_StringBuilder.ToString());
+        }
+
+        private void changeVehicleStatus()
+        {
+            Console.WriteLine("Enter the license number of the vehicle: ");
+            string licenseNumber = Console.ReadLine();
+            GarageVehicle garageVehicle = r_GarageManager.GetVehicleByLicenseNumber(licenseNumber);
+
+            if (garageVehicle == null)
+            {
+                Console.WriteLine("Error: Vehicle not found in the garage.");
+                return;
+            }
+
+            r_StringBuilder.Clear();
+            r_StringBuilder.AppendLine("Choose the new status of the vehicle:");
+            r_StringBuilder.AppendLine("1. In repair");
+            r_StringBuilder.AppendLine("2. Repaired ");
+            r_StringBuilder.AppendLine("3. Paid ");
+            Console.WriteLine(r_StringBuilder.ToString());
+            string userInput = Console.ReadLine();
+
+            try
+            {
+                eVehicleStatus newStatus = ParseVehicleStatus(userInput);
+                r_GarageManager.ChangeVehicleStatus(garageVehicle, newStatus);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"Error: {exception.Message}");
+            }
         }
     }
 }

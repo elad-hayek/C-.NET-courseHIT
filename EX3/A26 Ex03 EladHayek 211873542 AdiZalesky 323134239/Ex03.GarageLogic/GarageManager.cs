@@ -38,5 +38,24 @@ namespace Ex03.GarageLogic
         {
             // TODO: Implement loading logic
         }
+
+        public GarageVehicle GetVehicleByLicenseNumber(string i_LicenseNumber)
+        {
+            r_Garage.GarageVehicles.TryGetValue(i_LicenseNumber, out GarageVehicle garageVehicle);
+            return garageVehicle;
+        }
+
+        public void ChangeVehicleStatus(GarageVehicle i_GarageVehicle, eVehicleStatus i_NewStatus)
+        {
+            if (i_GarageVehicle != null)
+            {
+                i_GarageVehicle.VehicleStatus = i_NewStatus;
+            }
+            else
+            {
+                throw new ArgumentNullException("The vehicle provided was null");
+            }
+        }
+       
     }
 }
