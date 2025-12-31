@@ -21,13 +21,13 @@ namespace Ex03.ConsoleUI
             r_StringBuilder.AppendLine("4. Change vehicle status");
             r_StringBuilder.AppendLine("5. Inflate vehicle tires to maximum");
             r_StringBuilder.AppendLine("6. Refuel a vehicle");
-            r_StringBuilder.AppendLine("7. Charge an electric vehicle");
+            r_StringBuilder.AppendLine("7. Recharge an electric vehicle");
             r_StringBuilder.AppendLine("8. Display vehicle details");
             r_StringBuilder.AppendLine("9. Exit");
             return r_StringBuilder.ToString();
         }
 
-        private eMenuOption ParseMenuOption(string i_UserInput)
+        private eMenuOption parseMenuOption(string i_UserInput)
         {
             if (int.TryParse(i_UserInput, out int menuOptionNumber) && menuOptionNumber >= 1 && menuOptionNumber <= 9)
             {
@@ -50,7 +50,7 @@ namespace Ex03.ConsoleUI
                 string userInput = Console.ReadLine();
                 try
                 {
-                    menuOption = ParseMenuOption(userInput);
+                    menuOption = parseMenuOption(userInput);
                     activateMenuOption(menuOption.Value);
                     isInputInvalid = false;
                 }
@@ -86,10 +86,10 @@ namespace Ex03.ConsoleUI
                     // Inflate tires logic
                     break;
                 case eMenuOption.RefuelVehicle:
-                    // Refuel vehicle logic
+                    refuelVehicle();
                     break;
-                case eMenuOption.ChargeElectricVehicle:
-                    // Charge electric vehicle logic
+                case eMenuOption.RechargeElectricVehicle:
+                    rechargeVehicle();
                     break;
                 case eMenuOption.DisplayVehicleDetails:
                     // Display vehicle details logic
@@ -111,7 +111,7 @@ namespace Ex03.ConsoleUI
             // Implementation for entering a new vehicle
         }
 
-        private eVehicleStatus ParseVehicleStatus(string i_UserInput)
+        private eVehicleStatus parseVehicleStatus(string i_UserInput)
         {
             if (int.TryParse(i_UserInput, out int vehicleStatusNumber) && vehicleStatusNumber >= 1 && vehicleStatusNumber <= 3)
             {
@@ -119,6 +119,16 @@ namespace Ex03.ConsoleUI
             }
 
             throw new FormatException("Invalid status number");
+        }
+
+        private eFuelType parseFuelType(string i_UserInput)
+        {
+            if (int.TryParse(i_UserInput, out int fuelTypeNumber) && fuelTypeNumber >= 1 && fuelTypeNumber <= 5)
+            {
+                return (eFuelType)fuelTypeNumber;
+            }
+
+            throw new FormatException("Invalid fuel type number");
         }
 
         private void displayLicenseNumbers()
@@ -142,7 +152,7 @@ namespace Ex03.ConsoleUI
                 {
                     try
                     {
-                        filterStatus = ParseVehicleStatus(userInput);
+                        filterStatus = parseVehicleStatus(userInput);
                         isInputInvalid = false;
                     }
                     catch (FormatException formatException)
@@ -169,30 +179,89 @@ namespace Ex03.ConsoleUI
             Console.WriteLine(r_StringBuilder.ToString());
         }
 
-        private void changeVehicleStatus()
+        private GarageVehicle getGarageVehicleFromUser()
         {
             Console.WriteLine("Enter the license number of the vehicle: ");
+            GarageVehicle garageVehicle = null;
             string licenseNumber = Console.ReadLine();
-            GarageVehicle garageVehicle = r_GarageManager.GetVehicleByLicenseNumber(licenseNumber);
+            garageVehicle = r_GarageManager.GetVehicleByLicenseNumber(licenseNumber);
+            return garageVehicle;
+        }
 
-            if (garageVehicle == null)
-            {
-                Console.WriteLine("Error: Vehicle not found in the garage.");
-                return;
-            }
-
-            r_StringBuilder.Clear();
-            r_StringBuilder.AppendLine("Choose the new status of the vehicle:");
-            r_StringBuilder.AppendLine("1. In repair");
-            r_StringBuilder.AppendLine("2. Repaired ");
-            r_StringBuilder.AppendLine("3. Paid ");
-            Console.WriteLine(r_StringBuilder.ToString());
-            string userInput = Console.ReadLine();
-
+        private void changeVehicleStatus()
+        {
             try
             {
-                eVehicleStatus newStatus = ParseVehicleStatus(userInput);
+                GarageVehicle garageVehicle = getGarageVehicleFromUser();
+                r_StringBuilder.Clear();
+                r_StringBuilder.AppendLine("Choose the new status of the vehicle:");
+                r_StringBuilder.AppendLine("1. In repair");
+                r_StringBuilder.AppendLine("2. Repaired ");
+                r_StringBuilder.AppendLine("3. Paid ");
+                Console.WriteLine(r_StringBuilder.ToString());
+                string userInput = Console.ReadLine();
+                eVehicleStatus newStatus = parseVehicleStatus(userInput);
                 r_GarageManager.ChangeVehicleStatus(garageVehicle, newStatus);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"Error: {exception.Message}");
+            }
+        }
+
+        private string GetFuelTypeMenu()
+        {
+            r_StringBuilder.Clear();
+            r_StringBuilder.AppendLine("Choose fuel type:");
+            r_StringBuilder.AppendLine("1. Soler");
+            r_StringBuilder.AppendLine("2. Octan95");
+            r_StringBuilder.AppendLine("3. Octan96");
+            r_StringBuilder.AppendLine("4. Octan98");
+            return r_StringBuilder.ToString();
+        }
+
+        private float getAmountOfEnergyFromUser(string i_EnergyUnit)
+        {
+            Console.WriteLine($"Enter amount of {i_EnergyUnit} to add: ");
+            string amountOfEnergyInput = Console.ReadLine();
+
+            if (float.TryParse(amountOfEnergyInput, out float amountOfEnergyToAdd))
+            {
+                return amountOfEnergyToAdd;
+            }
+            else
+            {
+                throw new FormatException($"Invalid amount of {i_EnergyUnit}.");
+            }
+        }
+
+        private void refuelVehicle()
+        {
+            try
+            {
+                GarageVehicle garageVehicle = getGarageVehicleFromUser();
+                Console.WriteLine(GetFuelTypeMenu());
+                string fuelTypeInput = Console.ReadLine();
+                eFuelType fuelType = parseFuelType(fuelTypeInput);
+                float amountOfFuelToAdd = getAmountOfEnergyFromUser("liters");
+                r_GarageManager.RefuelVehicle(garageVehicle, fuelType, amountOfFuelToAdd);
+                Console.WriteLine($"{amountOfFuelToAdd} was added to the car's fuel tank");
+
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"Error: {exception.Message}");
+            }
+        }
+
+        private void rechargeVehicle()
+        {
+            try
+            {
+                GarageVehicle garageVehicle = getGarageVehicleFromUser();
+                float amountOfMinutesToAdd = getAmountOfEnergyFromUser("minutes");
+                r_GarageManager.RechargeVehicle(garageVehicle, amountOfMinutesToAdd);
+                Console.WriteLine($"{amountOfMinutesToAdd} was added to the car's battery");
             }
             catch (Exception exception)
             {

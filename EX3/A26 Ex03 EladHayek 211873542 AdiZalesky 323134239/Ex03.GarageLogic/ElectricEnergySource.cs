@@ -1,4 +1,6 @@
-﻿namespace Ex03.GarageLogic
+﻿using Ex03.GarageLogic.Exceptions;
+
+namespace Ex03.GarageLogic
 {
     public class ElectricEnergySource : EnergySource
     {
@@ -7,9 +9,14 @@
             Recharge(i_AmountToAdd);
         }
 
-        public void Recharge(float i_HoursToAdd)
+        public void Recharge(float i_MinutesToAdd)
         {
-            // TODO: Implement proper exception handling for battery capacity limits
+            if (CurrentAvailableEnergy + i_MinutesToAdd > MaxEnergyCapacity)
+            {
+                throw new ValueRangeException("Battery capacity", 0, MaxEnergyCapacity);
+            }
+
+            EnergyPercentage = ((CurrentAvailableEnergy + i_MinutesToAdd) / MaxEnergyCapacity) * 100;
         }
 
     }

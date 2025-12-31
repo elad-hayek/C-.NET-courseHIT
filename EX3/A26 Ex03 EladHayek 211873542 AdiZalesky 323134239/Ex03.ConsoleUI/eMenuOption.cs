@@ -8,7 +8,7 @@
         ChangeVehicleStatus,
         InflateTiresToMax,
         RefuelVehicle,
-        ChargeElectricVehicle,
+        RechargeElectricVehicle,
         DisplayVehicleDetails,
         Exit,
     }

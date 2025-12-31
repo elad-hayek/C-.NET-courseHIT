@@ -1,4 +1,6 @@
-﻿namespace Ex03.GarageLogic
+﻿using Ex03.GarageLogic.Exceptions;
+
+namespace Ex03.GarageLogic
 {
     public abstract class EnergySource
     {
@@ -15,7 +17,11 @@
             }
             set
             {
-                // TODO: Add validation to ensure percentage is between 0 and 100
+                if(value < 0 || value > 100)
+                {
+                    throw new ValueRangeException("Energy Percentage", 0, 100);
+                }
+
                 m_RemainingEnergy = value;
             }
         }
@@ -28,7 +34,11 @@
             }
             set
             {
-                // TODO: Add validation to ensure capacity is positive
+                if(value <= 0)
+                {
+                    throw new ValueRangeException("Max Energy Capacity", 0.1f, float.MaxValue);
+                }
+
                 m_MaxEnergyCapacity = value;
             }
         }

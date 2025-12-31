@@ -49,6 +49,8 @@
     <Compile Include="eLicenseType.cs" />
     <Compile Include="EnergySource.cs" />
     <Compile Include="eVehicleStatus.cs" />
+    <Compile Include="Exceptions\ValueRangeException.cs" />
+    <Compile Include="Exceptions\VehicleNotFoundException.cs" />
     <Compile Include="FuelCar.cs" />
     <Compile Include="FuelEnergySource.cs" />
     <Compile Include="FuelMotorcycle.cs" />

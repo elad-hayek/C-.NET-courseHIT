@@ -1,4 +1,6 @@
-﻿namespace Ex03.GarageLogic
+﻿using System;
+
+namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
@@ -43,7 +45,7 @@
             }
         }
 
-        protected float EnergyPercentage
+        public float EnergyPercentage
         {
             get
             {
@@ -98,8 +100,21 @@
             }
         }
 
+        public eEnergyKind EnergyKind
+        {
+            get
+            {
+                return m_EnergyKind;
+            }
+        }
+
         public void AddEnergy(float i_AmountToAdd, eFuelType? i_FuelType = null)
         {
+            if (m_EnergySource == null)
+            { 
+                throw new NullReferenceException("Energy source is not initialized");
+            }
+
             m_EnergySource.AddEnergy(i_AmountToAdd, i_FuelType);
         }
     }

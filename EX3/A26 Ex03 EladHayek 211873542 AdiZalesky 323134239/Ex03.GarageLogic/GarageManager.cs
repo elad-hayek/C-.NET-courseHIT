@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ex03.GarageLogic.Exceptions;
+using System;
 using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
@@ -41,8 +42,12 @@ namespace Ex03.GarageLogic
 
         public GarageVehicle GetVehicleByLicenseNumber(string i_LicenseNumber)
         {
-            r_Garage.GarageVehicles.TryGetValue(i_LicenseNumber, out GarageVehicle garageVehicle);
-            return garageVehicle;
+            if (r_Garage.GarageVehicles.TryGetValue(i_LicenseNumber, out GarageVehicle garageVehicle))
+            {
+                return garageVehicle;
+            }
+
+            throw new VehicleNotFoundException(i_LicenseNumber);
         }
 
         public void ChangeVehicleStatus(GarageVehicle i_GarageVehicle, eVehicleStatus i_NewStatus)
@@ -56,6 +61,28 @@ namespace Ex03.GarageLogic
                 throw new ArgumentNullException("The vehicle provided was null");
             }
         }
-       
+
+        public void RefuelVehicle(GarageVehicle garageVehicle, eFuelType fuelType, float amountOfFuelToAdd)
+        {
+            // TODO: Implement refueling logic
+            throw new NotImplementedException();
+        }
+
+        public void RechargeVehicle(GarageVehicle i_GarageVehicle, float i_AmountOfFuelToAdd)
+        {
+            if (i_GarageVehicle != null)
+            {
+                if(i_GarageVehicle.Vehicle.EnergyKind != eEnergyKind.Electric)
+                {
+                    throw new ArgumentException("The vehicle provided is not electric");
+                }
+
+                i_GarageVehicle.Vehicle.AddEnergy(i_AmountOfFuelToAdd);
+            }
+            else
+            {
+                throw new ArgumentNullException("The vehicle provided was null");
+            }
+        }
     }
 }
