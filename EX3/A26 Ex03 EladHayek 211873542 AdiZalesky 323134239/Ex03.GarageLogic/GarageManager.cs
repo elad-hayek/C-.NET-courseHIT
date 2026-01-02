@@ -1,6 +1,8 @@
 ﻿using Ex03.GarageLogic.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Ex03.GarageLogic
 {
@@ -37,7 +39,67 @@ namespace Ex03.GarageLogic
 
         public void LoadGarageVehiclesFromFile(string i_FilePath)
         {
-            // TODO: Implement loading logic
+            string[] fileLines = File.ReadAllLines(i_FilePath);
+            foreach (string line in fileLines)
+            {
+                try
+                {
+                    GarageVehicle garageVehicle = createGarageVehicleFromDataLine(line);
+                    r_Garage.AddGarageVehicle(garageVehicle);
+                }
+                catch (Exception ex)
+                {
+                    // TODO: create dedicated exception for load errors
+                    throw new Exception($"Error loading vehicle from line: {line}. Exception: {ex.Message}");
+                }
+            }
+        }
+
+        private GarageVehicle createGarageVehicleFromDataLine(string i_DataLine)
+        {
+            string[] vehicleData = i_DataLine.Split(',');
+
+            if (vehicleData.Length < 4)
+            {
+                throw new FormatException("Insufficient data to create a GarageVehicle");
+            }
+
+            string vehicleType = vehicleData[0];
+            if (!validateVehicleType(vehicleType))
+            {
+                throw new ArgumentException($"Unsupported vehicle type: {vehicleType}");
+            }
+
+            string licensePlate = vehicleData[1];
+            string modelName = vehicleData[2];
+            Vehicle vehicle = VehicleCreator.CreateVehicle(vehicleType, licensePlate, modelName);
+            vehicle.EnergyPercentage = float.Parse(vehicleData[3]);
+            string tireModel = vehicleData[4];
+            float tireAirPressure = float.Parse(vehicleData[5]);
+
+            foreach (Wheel wheel in vehicle.Wheels)
+            {
+                wheel.ManufacturerName = tireModel;
+                wheel.Inflate(tireAirPressure);
+            }
+
+            string ownerName = vehicleData[6];
+            string ownerPhoneNumber = vehicleData[7];
+
+            if (vehicleData.Length > 8)
+            {
+
+                // TODO: dont use linq here
+                string[] specificVehicleData = vehicleData.Skip(8).ToArray();
+                vehicle.SetSpecificVehicleData(specificVehicleData);
+            }
+
+            return new GarageVehicle(vehicle, ownerName, ownerPhoneNumber);
+        }
+
+        private bool validateVehicleType(string i_VehicleType)
+        {
+            return VehicleCreator.SupportedTypes.Contains(i_VehicleType);
         }
 
         public GarageVehicle GetVehicleByLicenseNumber(string i_LicenseNumber)
@@ -58,7 +120,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ArgumentNullException("The vehicle provided was null");
+                throw new ArgumentNullException("i_GarageVehicle", "The vehicle provided was null");
             }
         }
 
@@ -66,7 +128,7 @@ namespace Ex03.GarageLogic
         {
             if (i_GarageVehicle == null)
             {
-                throw new ArgumentNullException("The vehicle provided was null");
+                throw new ArgumentNullException("i_GarageVehicle", "The vehicle provided was null");
             }
 
             return true;

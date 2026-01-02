@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ex03.GarageLogic.Exceptions;
+using System;
 
 namespace Ex03.GarageLogic
 {
@@ -21,13 +22,17 @@ namespace Ex03.GarageLogic
 
         public int NumberOfDoors
         {
-            // TODO: implement set 2 to 5 doors
             get
             {
                 return m_NumberOfDoors;
             }
             set
             {
+                if(value < 2 || value > 5)
+                {
+                    throw new ValueRangeException("Car number of doors", 2, 5);
+                }
+
                 m_NumberOfDoors = value;
             }
         }
@@ -49,6 +54,23 @@ namespace Ex03.GarageLogic
                 m_CarColor,
                 m_NumberOfDoors,
                 Environment.NewLine);
+        }
+
+        public override void SetSpecificVehicleData(string[] i_VehicleSpecificData)
+        {
+            string carColorString = i_VehicleSpecificData[0];
+            bool colorParseSuccedded = Enum.TryParse(carColorString, out eCarColor carColor);
+
+            if (colorParseSuccedded)
+            {
+                m_CarColor = carColor;
+            }
+            else
+            {
+                throw new FormatException("Invalid car color option.");
+            }
+
+            NumberOfDoors = int.Parse(i_VehicleSpecificData[1]);
         }
     }
 }

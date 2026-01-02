@@ -38,6 +38,11 @@ namespace Ex03.GarageLogic
             }
             set
             {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Cargo volume cannot be negative.");
+                }
+
                 m_CargoVolume = value;
             }
         }
@@ -49,6 +54,12 @@ namespace Ex03.GarageLogic
                 m_IsCarryingHazardousMaterials ? "Yes" : "No",
                 m_CargoVolume,
                 Environment.NewLine);
+        }
+
+        public override void SetSpecificVehicleData(string[] i_VehicleSpecificData)
+        {
+            IsCarryingHazardousMaterials = bool.Parse(i_VehicleSpecificData[0]);
+            CargoVolume = float.Parse(i_VehicleSpecificData[1]);
         }
     }
 }

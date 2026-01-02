@@ -148,5 +148,7 @@ namespace Ex03.GarageLogic
                 getWheelsInfo(),
                 m_EnergySource.ToString());
         }
+
+        public abstract void SetSpecificVehicleData(string[] i_VehicleSpecificData);
     }
 }

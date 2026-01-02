@@ -97,7 +97,7 @@ namespace Ex03.ConsoleUI
                 case eMenuOption.Exit:
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("Invalid menu option.");
+                    throw new Exception("Invalid menu option.");
             }
         }
 
@@ -117,7 +117,14 @@ namespace Ex03.ConsoleUI
 
         private void loadSystemFromFile()
         {
-            r_GarageManager.LoadGarageVehiclesFromFile("VehiclesDB.txt");
+            try
+            {
+                r_GarageManager.LoadGarageVehiclesFromFile("VehiclesDB.txt");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"Error: {exception.Message}");
+            }
         }
 
         private void enterNewVehicle()

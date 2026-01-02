@@ -33,7 +33,7 @@ namespace Ex03.GarageLogic
         {
             if (i_FuelType == null)
             {
-                throw new ArgumentNullException("Fuel type must be provided when refueling a vehicle.");
+                throw new ArgumentNullException("i_FuelType", "Fuel type must be provided when refueling a vehicle.");
             }
 
             refuel(i_AmountToAdd, i_FuelType.Value);

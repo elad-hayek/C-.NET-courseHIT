@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
@@ -57,8 +58,20 @@ namespace Ex03.GarageLogic
 
         public void AddGarageVehicle(GarageVehicle i_GarageVehicle)
         {
-            // TODO: hanle null or existing logic
-            r_GarageVehicles.Add(i_GarageVehicle.Vehicle.LicenseID, i_GarageVehicle);
+            if(i_GarageVehicle == null)
+            {
+                throw new ArgumentNullException("i_GarageVehicle", "Garage vehicle cannot be null.");
+            }
+
+            if (!r_GarageVehicles.ContainsKey(i_GarageVehicle.Vehicle.LicenseID))
+            {
+                r_GarageVehicles.Add(i_GarageVehicle.Vehicle.LicenseID, i_GarageVehicle);
+            }
+            else
+            {
+                throw new ArgumentException($"A vehicle with license ID {i_GarageVehicle.Vehicle.LicenseID} already exists in the garage.");
+            }
+
         }
     }
 }

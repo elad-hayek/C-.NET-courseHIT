@@ -37,6 +37,11 @@ namespace Ex03.GarageLogic
             }
             set
             {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Engine capacity must be a positive integer.");
+                }
+
                 m_EngineCapacity = value;
             }
         }
@@ -48,6 +53,23 @@ namespace Ex03.GarageLogic
                 m_LicenseType,
                 m_EngineCapacity,
                 Environment.NewLine);
+        }
+
+        public override void SetSpecificVehicleData(string[] i_VehicleSpecificData)
+        {
+            string licenseTypeString = i_VehicleSpecificData[0];
+            bool licenseTypeParseSuccedded = Enum.TryParse(licenseTypeString, out eLicenseType licenseType);
+
+            if (licenseTypeParseSuccedded)
+            {
+                m_LicenseType = licenseType;
+            }
+            else
+            {
+                throw new FormatException("Invalid license type option.");
+            }
+
+            EngineCapacity = int.Parse(i_VehicleSpecificData[1]);
         }
     }
 }
