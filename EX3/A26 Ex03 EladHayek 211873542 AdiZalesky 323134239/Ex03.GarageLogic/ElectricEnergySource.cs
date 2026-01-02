@@ -28,5 +28,11 @@ namespace Ex03.GarageLogic
             EnergyPercentage = ((CurrentAvailableEnergy + i_MinutesToAdd) / MaxEnergyCapacity) * 100;
         }
 
+        public override string ToString()
+        {
+            return string.Format("Minutes remaining in battery: {0}  ({1}%)",
+                CurrentAvailableEnergy,
+                EnergyPercentage);
+        }
     }
 }

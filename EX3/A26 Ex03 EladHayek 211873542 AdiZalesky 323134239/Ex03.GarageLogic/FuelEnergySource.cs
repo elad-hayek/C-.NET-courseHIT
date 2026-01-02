@@ -41,7 +41,7 @@ namespace Ex03.GarageLogic
 
         private void refuel(float i_AmountOfLitersToAdd, eFuelType i_FuelType)
         {
-            if( i_AmountOfLitersToAdd <= 0)
+            if (i_AmountOfLitersToAdd <= 0)
             {
                 throw new ValueRangeException("Amount of fuel to add", 0.1f, MaxEnergyCapacity - CurrentAvailableEnergy);
             }
@@ -57,6 +57,15 @@ namespace Ex03.GarageLogic
             }
 
             EnergyPercentage = ((CurrentAvailableEnergy + i_AmountOfLitersToAdd) / MaxEnergyCapacity) * 100;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Fuel Type: {0}{3}Current Fuel Level: {1}L  ({2}%)",
+                    m_FuelType,
+                    CurrentAvailableEnergy,
+                    EnergyPercentage,
+                    Environment.NewLine);
         }
     }
 }

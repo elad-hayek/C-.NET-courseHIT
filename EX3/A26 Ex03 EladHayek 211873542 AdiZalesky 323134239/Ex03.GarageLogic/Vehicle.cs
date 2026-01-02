@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Ex03.GarageLogic
 {
@@ -123,6 +124,29 @@ namespace Ex03.GarageLogic
             {
                 wheel.InflateToMax();
             }
+        }
+
+        private string getWheelsInfo()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < m_Wheels.Length; i++)
+            {
+                stringBuilder.AppendLine($"Wheel {i + 1}:");
+                stringBuilder.AppendLine($"{m_Wheels[i].ToString()}");
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        public override string ToString()
+        {
+            return string.Format("License ID: {1}{0}Model Name: {2}{0}{3}{4}",
+                Environment.NewLine,
+                r_LicenseID,
+                r_ModelName,
+                getWheelsInfo(),
+                m_EnergySource.ToString());
         }
     }
 }

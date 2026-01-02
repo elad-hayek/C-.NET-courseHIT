@@ -1,4 +1,5 @@
 ﻿using Ex03.GarageLogic.Exceptions;
+using System;
 
 namespace Ex03.GarageLogic
 {
@@ -63,5 +64,12 @@ namespace Ex03.GarageLogic
             m_CurrentAirPressure = r_MaxAirPressure;
         }
 
+        public override string ToString()
+        {
+            return string.Format("Manufacturer: {0}{1}Current Air Pressure: {2}",
+                M_ManufacturerName,
+                Environment.NewLine,
+                m_CurrentAirPressure);
+        }
     }
 }

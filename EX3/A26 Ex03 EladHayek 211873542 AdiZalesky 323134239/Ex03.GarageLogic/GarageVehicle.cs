@@ -1,4 +1,6 @@
-﻿namespace Ex03.GarageLogic
+﻿using System;
+
+namespace Ex03.GarageLogic
 {
     public class GarageVehicle
     {
@@ -49,6 +51,31 @@
             {
                 return m_OwnerPhoneNumber;
             }
+        }
+
+        private string getVehicleStatusString()
+        {
+            switch (m_VehicleStatus)
+            {
+                case eVehicleStatus.InRepair:
+                    return "In Repair";
+                case eVehicleStatus.Repaired:
+                    return "Repaired";
+                case eVehicleStatus.Paid:
+                    return "Paid";
+                default:
+                    // TODO: proper exception
+                    throw new Exception("");
+            }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Owner Name: {0}{3}Vehicle Status: {1}{3}{2}",
+                m_OwnerName,
+                getVehicleStatusString(),
+                m_Vehicle.ToString(),
+                Environment.NewLine);
         }
     }
 }

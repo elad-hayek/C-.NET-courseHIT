@@ -1,4 +1,6 @@
-﻿namespace Ex03.GarageLogic
+﻿using System;
+
+namespace Ex03.GarageLogic
 {
     public abstract class Car : Vehicle
     {
@@ -38,6 +40,15 @@
             {
                 Wheels[i] = new Wheel(33f);
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}{3}Car Color: {1}{3}Number of Doors: {2}",
+                base.ToString(),
+                m_CarColor,
+                m_NumberOfDoors,
+                Environment.NewLine);
         }
     }
 }

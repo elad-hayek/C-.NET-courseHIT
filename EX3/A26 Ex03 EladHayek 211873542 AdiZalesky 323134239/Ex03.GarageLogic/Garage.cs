@@ -11,33 +11,34 @@ namespace Ex03.GarageLogic
             r_GarageVehicles = new Dictionary<string, GarageVehicle>();
 
             // TODO: remove this test data
-            GarageVehicle testVehicle1 = new GarageVehicle(new FuelTruck("111", "FuelTruck"), "John Doe", "050-1234567")
+            GarageVehicle testVehicle1 = new GarageVehicle(new FuelTruck("111", "Ferari"), "John Doe", "050-1234567")
             {
                 VehicleStatus = eVehicleStatus.Repaired
             };
 
             testVehicle1.Vehicle.EnergyPercentage = 33f;
 
-            GarageVehicle testVehicle2 = new GarageVehicle(new FuelCar("34343-2345-678", "FuelCar"), "John Doe2", "050-1234567")
+            GarageVehicle testVehicle2 = new GarageVehicle(new FuelCar("444", "Buick"), "John Doe2", "050-1234567")
             {
                 VehicleStatus = eVehicleStatus.InRepair
             };
 
-            GarageVehicle testVehicle3 = new GarageVehicle(new ElectricCar("222", "ElectricCar"), "John Doe3", "050-1234567")
+            GarageVehicle testVehicle3 = new GarageVehicle(new ElectricCar("222", "Mistubish"), "John Doe3", "050-1234567")
             {
                 VehicleStatus = eVehicleStatus.Paid
             };
 
             testVehicle3.Vehicle.EnergyPercentage = 25f;
 
-            GarageVehicle testVehicle4 = new GarageVehicle(new FuelMotorcycle("333", "FuelMotorcycle"), "John Doe4", "050-1234567")
+            GarageVehicle testVehicle4 = new GarageVehicle(new FuelMotorcycle("333", "Honda"), "John Doe4", "050-1234567")
             {
                 VehicleStatus = eVehicleStatus.Paid
             };
 
-            foreach(Wheel wheel in testVehicle4.Vehicle.Wheels)
+            foreach (Wheel wheel in testVehicle4.Vehicle.Wheels)
             {
                 wheel.Inflate(15f);
+                wheel.ManufacturerName = "Goodyear";
             }
 
             AddGarageVehicle(testVehicle1);

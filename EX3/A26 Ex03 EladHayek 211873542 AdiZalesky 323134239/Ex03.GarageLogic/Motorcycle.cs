@@ -1,4 +1,6 @@
-﻿namespace Ex03.GarageLogic
+﻿using System;
+
+namespace Ex03.GarageLogic
 {
     public abstract class Motorcycle : Vehicle
     {
@@ -37,6 +39,15 @@
             {
                 m_EngineCapacity = value;
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}{3}License Type: {1}{3}Engine Capacity: {2}cc",
+                base.ToString(),
+                m_LicenseType,
+                m_EngineCapacity,
+                Environment.NewLine);
         }
     }
 }

@@ -92,12 +92,26 @@ namespace Ex03.ConsoleUI
                     rechargeVehicle();
                     break;
                 case eMenuOption.DisplayVehicleDetails:
-                    // Display vehicle details logic
+                    displayVehicleDetails();
                     break;
                 case eMenuOption.Exit:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Invalid menu option.");
+            }
+        }
+
+        private void displayVehicleDetails()
+        {
+            try
+            {
+                GarageVehicle garageVehicle = getGarageVehicleFromUser();
+                Console.WriteLine(garageVehicle.ToString());
+                Console.WriteLine();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"Error: {exception.Message}");
             }
         }
 
@@ -108,7 +122,7 @@ namespace Ex03.ConsoleUI
 
         private void enterNewVehicle()
         {
-            // Implementation for entering a new vehicle
+            // TODO: Implementation for entering a new vehicle
         }
 
         private eVehicleStatus parseVehicleStatus(string i_UserInput)
