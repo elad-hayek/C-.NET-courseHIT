@@ -39,17 +39,17 @@ namespace Ex03.GarageLogic
         public void LoadGarageVehiclesFromFile(string i_FilePath)
         {
             string[] fileLines = File.ReadAllLines(i_FilePath);
-            foreach (string line in fileLines)
+
+            for (int i = 0; i < fileLines.Length; i++)
             {
                 try
                 {
-                    GarageVehicle garageVehicle = createGarageVehicleFromDataLine(line);
+                    GarageVehicle garageVehicle = createGarageVehicleFromDataLine(fileLines[i]);
                     r_Garage.AddGarageVehicle(garageVehicle);
                 }
                 catch (Exception ex)
                 {
-                    // TODO: create dedicated exception for load errors
-                    throw new Exception($"Error loading vehicle from line: {line}. Exception: {ex.Message}");
+                    throw new Exception($"Error loading vehicle from line {i + 1}. Exception: {ex.Message}");
                 }
             }
         }
