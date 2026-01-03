@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Ex03.GarageLogic
@@ -150,5 +151,53 @@ namespace Ex03.GarageLogic
         }
 
         public abstract void SetSpecificVehicleData(string[] i_VehicleSpecificData);
+
+        public virtual Dictionary<eVehicleQuestion, string> GetVehicleDataQuestions()
+        {
+            Dictionary<eVehicleQuestion, string> questionsDictionary = new Dictionary<eVehicleQuestion, string>();
+            questionsDictionary.Add(eVehicleQuestion.WheelManufacturer, "Enter the wheels manufacturer: ");
+            questionsDictionary.Add(eVehicleQuestion.CurrentWheelAirPressure, "Enter the current air pressure of the wheels: ");
+            questionsDictionary.Add(eVehicleQuestion.EnergySourcePercentage, m_EnergySource.GetEnergyPercentageQuestion());
+            return questionsDictionary;
+        }
+
+        public virtual void SetVehicleDataFromQuestionAnswer(eVehicleQuestion i_QuestionType, string i_Answer)
+        {
+            switch (i_QuestionType)
+            {
+                case eVehicleQuestion.WheelManufacturer:
+                    setWheelsManufacturer(i_Answer);
+                    break;
+                case eVehicleQuestion.CurrentWheelAirPressure:
+                    setWheelCurrentAirPressure(i_Answer);
+                    break;
+                case eVehicleQuestion.EnergySourcePercentage:
+                    EnergyPercentage = float.Parse(i_Answer);
+                    break;
+            }
+        }
+
+        private void setWheelsManufacturer(string i_ManufacturerName)
+        {
+            foreach (Wheel wheel in m_Wheels)
+            {
+                wheel.ManufacturerName = i_ManufacturerName;
+            }
+        }
+
+        private void setWheelCurrentAirPressure(string i_Answer)
+        {
+            if (float.TryParse(i_Answer, out float airPressureToSet))
+            {
+                foreach (Wheel wheel in m_Wheels)
+                {
+                    wheel.Inflate(airPressureToSet - wheel.CurrentAirPressure);
+                }
+            }
+            else
+            {
+                throw new FormatException("Invalid format for wheel air pressure");
+            }
+        }
     }
 }

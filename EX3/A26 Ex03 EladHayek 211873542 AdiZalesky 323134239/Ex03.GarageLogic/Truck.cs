@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
@@ -60,6 +61,29 @@ namespace Ex03.GarageLogic
         {
             IsCarryingHazardousMaterials = bool.Parse(i_VehicleSpecificData[0]);
             CargoVolume = float.Parse(i_VehicleSpecificData[1]);
+        }
+
+        public override Dictionary<eVehicleQuestion, string> GetVehicleDataQuestions()
+        {
+            Dictionary<eVehicleQuestion, string> questionsDictionary = base.GetVehicleDataQuestions();
+            questionsDictionary.Add(eVehicleQuestion.IsCarryingHazardousMaterials, "Is the truck carrying hazardous materials? (true/false)");
+            questionsDictionary.Add(eVehicleQuestion.CargoVolume, "Please enter the cargo volume in cubic meters: ");
+            return questionsDictionary;
+        }
+
+        public override void SetVehicleDataFromQuestionAnswer(eVehicleQuestion i_QuestionType, string i_Answer)
+        {
+            base.SetVehicleDataFromQuestionAnswer(i_QuestionType, i_Answer);
+
+            switch (i_QuestionType)
+            {
+               case eVehicleQuestion.IsCarryingHazardousMaterials:
+                    IsCarryingHazardousMaterials = bool.Parse(i_Answer);
+                    break;
+                case eVehicleQuestion.CargoVolume:
+                    CargoVolume = float.Parse(i_Answer);
+                    break;
+            }
         }
     }
 }

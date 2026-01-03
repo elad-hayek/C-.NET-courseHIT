@@ -1,5 +1,8 @@
 ﻿using Ex03.GarageLogic.Exceptions;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Security.Policy;
 
 namespace Ex03.GarageLogic
 {
@@ -59,18 +62,45 @@ namespace Ex03.GarageLogic
         public override void SetSpecificVehicleData(string[] i_VehicleSpecificData)
         {
             string carColorString = i_VehicleSpecificData[0];
-            bool colorParseSuccedded = Enum.TryParse(carColorString, out eCarColor carColor);
+            m_CarColor = parseCarColor(carColorString);
+            NumberOfDoors = int.Parse(i_VehicleSpecificData[1]);
+        }
+
+        private eCarColor parseCarColor(string i_CarColorString)
+        {
+            bool colorParseSuccedded = Enum.TryParse(i_CarColorString, out eCarColor carColor);
 
             if (colorParseSuccedded)
             {
-                m_CarColor = carColor;
+                return carColor;
             }
             else
             {
                 throw new FormatException("Invalid car color option.");
             }
+        }
 
-            NumberOfDoors = int.Parse(i_VehicleSpecificData[1]);
+        public override Dictionary<eVehicleQuestion, string> GetVehicleDataQuestions()
+        {
+            Dictionary<eVehicleQuestion, string> questionsDictionary = base.GetVehicleDataQuestions();
+            questionsDictionary.Add(eVehicleQuestion.CarColor, "Please enter the car color (Options: Blue, Green, White, Black): ");
+            questionsDictionary.Add(eVehicleQuestion.NumberOfDoors, "Please enter the number of doors (Options: 2, 3, 4, 5): ");
+            return questionsDictionary;
+        }
+
+        public override void SetVehicleDataFromQuestionAnswer(eVehicleQuestion i_QuestionType, string i_Answer)
+        {
+            base.SetVehicleDataFromQuestionAnswer(i_QuestionType, i_Answer);
+
+            switch (i_QuestionType)
+            {
+                case eVehicleQuestion.CarColor:
+                    m_CarColor = parseCarColor(i_Answer);
+                    break;
+                case eVehicleQuestion.NumberOfDoors:
+                    NumberOfDoors = int.Parse(i_Answer);
+                    break;
+            }
         }
     }
 }

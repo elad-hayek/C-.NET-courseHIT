@@ -51,5 +51,6 @@ namespace Ex03.GarageLogic
         }
 
         public abstract void AddEnergy(float i_AmountToAdd, eFuelType? i_FuelType = null);
+        public abstract string GetEnergyPercentageQuestion();
     }
 }

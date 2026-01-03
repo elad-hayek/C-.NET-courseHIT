@@ -1,7 +1,7 @@
 ﻿
 namespace Ex03.GarageLogic
 {
-    public class FuelMotorcycle : Motorcycle
+    public sealed class FuelMotorcycle : Motorcycle
     {
         public FuelMotorcycle(string i_LicenseID, string i_ModelName) : base(i_LicenseID, i_ModelName)
         {

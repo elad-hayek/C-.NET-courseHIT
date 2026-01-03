@@ -64,8 +64,7 @@ namespace Ex03.GarageLogic
                 case eVehicleStatus.Paid:
                     return "Paid";
                 default:
-                    // TODO: proper exception
-                    throw new Exception("");
+                    throw new ArgumentException("Vehicle status does not exists");
             }
         }
 

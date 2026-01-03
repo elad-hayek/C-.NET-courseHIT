@@ -48,6 +48,7 @@
     <Compile Include="ElectricMotorcycle.cs" />
     <Compile Include="eLicenseType.cs" />
     <Compile Include="EnergySource.cs" />
+    <Compile Include="eVehicleQuestion.cs" />
     <Compile Include="eVehicleStatus.cs" />
     <Compile Include="Exceptions\ValueRangeException.cs" />
     <Compile Include="Exceptions\VehicleNotFoundException.cs" />

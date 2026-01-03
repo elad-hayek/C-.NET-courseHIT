@@ -34,5 +34,10 @@ namespace Ex03.GarageLogic
                 CurrentAvailableEnergy,
                 EnergyPercentage);
         }
+
+        public override string GetEnergyPercentageQuestion()
+        {
+            return "Please enter the battery charge percentage";
+        }
     }
 }

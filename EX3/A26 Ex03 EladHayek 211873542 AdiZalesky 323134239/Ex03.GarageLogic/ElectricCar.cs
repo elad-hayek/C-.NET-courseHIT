@@ -1,7 +1,7 @@
 ﻿
 namespace Ex03.GarageLogic
 {
-    public class ElectricCar : Car
+    public sealed class ElectricCar : Car
     {
         public ElectricCar(string i_LicenseID, string i_ModelName) : base(i_LicenseID, i_ModelName)
         {

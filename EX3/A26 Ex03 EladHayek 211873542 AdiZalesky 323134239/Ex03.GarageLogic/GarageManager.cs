@@ -166,5 +166,11 @@ namespace Ex03.GarageLogic
             validateAndThrowVehicleIsNotNull(i_GarageVehicle);
             i_GarageVehicle.Vehicle.InflateTiresToMax();
         }
+
+        public void AddVehicleToGarage(GarageVehicle i_GarageVehicle)
+        {
+            validateAndThrowVehicleIsNotNull(i_GarageVehicle);
+            r_Garage.AddGarageVehicle(i_GarageVehicle);
+        }
     }
 }

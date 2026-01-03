@@ -67,5 +67,10 @@ namespace Ex03.GarageLogic
                     EnergyPercentage,
                     Environment.NewLine);
         }
+
+        public override string GetEnergyPercentageQuestion()
+        {
+            return "Please enter the amount of fuel percentage";
+        }
     }
 }

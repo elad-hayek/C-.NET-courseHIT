@@ -1,4 +1,5 @@
 ﻿using Ex03.GarageLogic;
+using Ex03.GarageLogic.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -131,7 +132,78 @@ namespace Ex03.ConsoleUI
 
         private void enterNewVehicle()
         {
-            // TODO: Implementation for entering a new vehicle
+            try
+            {
+                GarageVehicle garageVehicle = getGarageVehicleFromUser();
+                r_GarageManager.ChangeVehicleStatus(garageVehicle, eVehicleStatus.InRepair);
+                Console.WriteLine("Vehicle already exists in the garage. Status updated to 'In Repair'.");
+                Console.WriteLine();
+            }
+            catch (VehicleNotFoundException vehicleNotFoundException)
+            {
+                try
+                {
+                    GarageVehicle garageVehicle = createGarageVehicleFromUserInput(vehicleNotFoundException.LicenseNumber);
+
+                    foreach (KeyValuePair<eVehicleQuestion, string> question in garageVehicle.Vehicle.GetVehicleDataQuestions())
+                    {
+                        string userAnswer = getUserQuestionAnswer(question.Value);
+                        garageVehicle.Vehicle.SetVehicleDataFromQuestionAnswer(question.Key, userAnswer);
+                    }
+
+                    r_GarageManager.AddVehicleToGarage(garageVehicle);
+                    Console.WriteLine("Vehicle added successfully to the garage.");
+                    Console.WriteLine();
+                }
+                catch (Exception addNewVehicleException)
+                {
+                    Console.WriteLine($"Error: {addNewVehicleException.Message}");
+                }
+            }
+            catch (Exception generalException)
+            {
+                Console.WriteLine($"Error: {generalException.Message}");
+            }
+        }
+
+        private GarageVehicle createGarageVehicleFromUserInput(string i_LicenseId)
+        {
+            string vehicleType = getVehicleTypeFromUser();
+            string modelName = getUserQuestionAnswer("Enter the model name of the vehicle: ");
+            string ownerName = getUserQuestionAnswer("Enter the owner's name: ");
+            string ownerPhoneNumber = getUserQuestionAnswer("Enter the owner's phone number: ");
+            Vehicle vehicle = VehicleCreator.CreateVehicle(vehicleType, i_LicenseId, modelName);
+            GarageVehicle garageVehicle = new GarageVehicle(vehicle, ownerName, ownerPhoneNumber);
+            return garageVehicle;
+        }
+
+        private string getVehicleTypeFromUser()
+        {
+            List<string> vehicleTypes = VehicleCreator.SupportedTypes;
+            r_StringBuilder.Clear();
+            r_StringBuilder.AppendLine("Choose vehicle type:");
+
+            for (int i = 0; i < vehicleTypes.Count; i++)
+            {
+                r_StringBuilder.AppendLine($"{i + 1}. {vehicleTypes[i]}");
+            }
+
+            Console.WriteLine(r_StringBuilder.ToString());
+            string userInput = Console.ReadLine();
+
+            if (int.TryParse(userInput, out int userChoice) && userChoice >= 1 && userChoice <= 5)
+            {
+                return vehicleTypes[userChoice - 1];
+            }
+
+            throw new FormatException("Invalid vehicle type choice.");
+        }
+
+        private string getUserQuestionAnswer(string i_Question)
+        {
+            Console.WriteLine(i_Question);
+            string userInput = Console.ReadLine();
+            return userInput;
         }
 
         private eVehicleStatus parseVehicleStatus(string i_UserInput)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
@@ -58,18 +59,45 @@ namespace Ex03.GarageLogic
         public override void SetSpecificVehicleData(string[] i_VehicleSpecificData)
         {
             string licenseTypeString = i_VehicleSpecificData[0];
-            bool licenseTypeParseSuccedded = Enum.TryParse(licenseTypeString, out eLicenseType licenseType);
+            LicenseType = parseLicenseType(licenseTypeString);
+            EngineCapacity = int.Parse(i_VehicleSpecificData[1]);
+        }
+
+        private eLicenseType parseLicenseType(string i_LicenseType)
+        {
+            bool licenseTypeParseSuccedded = Enum.TryParse(i_LicenseType, out eLicenseType licenseType);
 
             if (licenseTypeParseSuccedded)
             {
-                m_LicenseType = licenseType;
+                return licenseType;
             }
             else
             {
                 throw new FormatException("Invalid license type option.");
             }
+        }
 
-            EngineCapacity = int.Parse(i_VehicleSpecificData[1]);
+        public override Dictionary<eVehicleQuestion, string> GetVehicleDataQuestions()
+        {
+            Dictionary<eVehicleQuestion, string> questionsDictionary = base.GetVehicleDataQuestions();
+            questionsDictionary.Add(eVehicleQuestion.LicenseType, "Please enter the motorcycle license type (A1, A2, AA, B): ");
+            questionsDictionary.Add(eVehicleQuestion.EngineCapacity, "Please enter the engine capacity (in cc): ");
+            return questionsDictionary;
+        }
+
+        public override void SetVehicleDataFromQuestionAnswer(eVehicleQuestion i_QuestionType, string i_Answer)
+        {
+            base.SetVehicleDataFromQuestionAnswer(i_QuestionType, i_Answer);
+
+            switch (i_QuestionType)
+            {
+                case eVehicleQuestion.LicenseType:
+                    LicenseType = parseLicenseType(i_Answer);
+                    break;
+                case eVehicleQuestion.EngineCapacity:
+                    EngineCapacity = int.Parse(i_Answer);
+                    break;
+            }
         }
     }
 }
