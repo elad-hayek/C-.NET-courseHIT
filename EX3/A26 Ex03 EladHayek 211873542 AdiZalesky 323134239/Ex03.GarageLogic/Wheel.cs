@@ -5,7 +5,7 @@ namespace Ex03.GarageLogic
 {
     public class Wheel
     {
-        private string M_ManufacturerName;
+        private string m_ManufacturerName;
         private readonly float r_MaxAirPressure;
         private float m_CurrentAirPressure;
 
@@ -18,11 +18,11 @@ namespace Ex03.GarageLogic
         {
             get
             {
-                return M_ManufacturerName;
+                return m_ManufacturerName;
             }
             set
             {
-                M_ManufacturerName = value;
+                m_ManufacturerName = value;
             }
         }
 
@@ -44,7 +44,7 @@ namespace Ex03.GarageLogic
 
         public void Inflate(float i_AirToAdd)
         {
-            if(i_AirToAdd <= 0)
+            if (i_AirToAdd <= 0)
             {
                 throw new ValueRangeException("Tire Air Pressure to add", 0.1f, r_MaxAirPressure - m_CurrentAirPressure);
             }
@@ -67,7 +67,7 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             return string.Format("Manufacturer: {0}{1}Current Air Pressure: {2}",
-                M_ManufacturerName,
+                m_ManufacturerName,
                 Environment.NewLine,
                 m_CurrentAirPressure);
         }
