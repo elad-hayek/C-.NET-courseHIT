@@ -14,11 +14,11 @@ namespace Ex03.GarageLogic
             r_Garage = new Garage();
         }
 
-        public List<string> GetLicenseNumbers(eVehicleStatus? filterStatus)
+        public List<string> GetLicenseNumbers(eVehicleStatus? i_FilterStatus)
         {
             List<string> licenseNumbers = null;
 
-            if (filterStatus == null)
+            if (i_FilterStatus == null)
             {
                 licenseNumbers = new List<string>(r_Garage.GarageVehicles.Keys);
             }
@@ -28,7 +28,7 @@ namespace Ex03.GarageLogic
 
                 foreach (KeyValuePair<string, GarageVehicle> garageVehiclePair in r_Garage.GarageVehicles)
                 {
-                    if (garageVehiclePair.Value.VehicleStatus == filterStatus)
+                    if (garageVehiclePair.Value.VehicleStatus == i_FilterStatus)
                     {
                         licenseNumbers.Add(garageVehiclePair.Key);
                     }
