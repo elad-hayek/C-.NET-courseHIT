@@ -2,7 +2,7 @@
 
 namespace Ex03.GarageLogic
 {
-    public class ElectricEnergySource : EnergySource
+    public sealed class ElectricEnergySource : EnergySource
     {
         public ElectricEnergySource(float i_MaxCapacity) : base(i_MaxCapacity)
         {

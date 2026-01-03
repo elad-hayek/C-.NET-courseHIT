@@ -151,13 +151,13 @@ namespace Ex03.GarageLogic
         }
 
         public abstract void SetSpecificVehicleData(string[] i_VehicleSpecificData);
-
         public virtual Dictionary<eVehicleQuestion, string> GetVehicleDataQuestions()
         {
             Dictionary<eVehicleQuestion, string> questionsDictionary = new Dictionary<eVehicleQuestion, string>();
             questionsDictionary.Add(eVehicleQuestion.WheelManufacturer, "Enter the wheels manufacturer: ");
             questionsDictionary.Add(eVehicleQuestion.CurrentWheelAirPressure, "Enter the current air pressure of the wheels: ");
             questionsDictionary.Add(eVehicleQuestion.EnergySourcePercentage, m_EnergySource.GetEnergyPercentageQuestion());
+
             return questionsDictionary;
         }
 

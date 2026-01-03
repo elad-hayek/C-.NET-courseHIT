@@ -35,7 +35,6 @@ namespace Ex03.GarageLogic
             {
                 throw new ArgumentException($"A vehicle with license ID {i_GarageVehicle.Vehicle.LicenseID} already exists in the garage.");
             }
-
         }
     }
 }

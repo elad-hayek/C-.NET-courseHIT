@@ -1,8 +1,6 @@
 ﻿using Ex03.GarageLogic.Exceptions;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Policy;
 
 namespace Ex03.GarageLogic
 {
@@ -31,7 +29,7 @@ namespace Ex03.GarageLogic
             }
             set
             {
-                if(value < 2 || value > 5)
+                if (value < 2 || value > 5)
                 {
                     throw new ValueRangeException("Car number of doors", 2, 5);
                 }
@@ -68,16 +66,12 @@ namespace Ex03.GarageLogic
 
         private eCarColor parseCarColor(string i_CarColorString)
         {
-            bool colorParseSuccedded = Enum.TryParse(i_CarColorString, out eCarColor carColor);
-
-            if (colorParseSuccedded)
-            {
-                return carColor;
-            }
-            else
+            if (!Enum.TryParse(i_CarColorString, out eCarColor carColor))
             {
                 throw new FormatException("Invalid car color option.");
             }
+
+            return carColor;
         }
 
         public override Dictionary<eVehicleQuestion, string> GetVehicleDataQuestions()
@@ -85,6 +79,7 @@ namespace Ex03.GarageLogic
             Dictionary<eVehicleQuestion, string> questionsDictionary = base.GetVehicleDataQuestions();
             questionsDictionary.Add(eVehicleQuestion.CarColor, "Please enter the car color (Options: Blue, Green, White, Black): ");
             questionsDictionary.Add(eVehicleQuestion.NumberOfDoors, "Please enter the number of doors (Options: 2, 3, 4, 5): ");
+
             return questionsDictionary;
         }
 

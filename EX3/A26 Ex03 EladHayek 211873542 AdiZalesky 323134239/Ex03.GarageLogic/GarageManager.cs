@@ -16,24 +16,26 @@ namespace Ex03.GarageLogic
 
         public List<string> GetLicenseNumbers(eVehicleStatus? filterStatus)
         {
+            List<string> licenseNumbers = null;
+
             if (filterStatus == null)
             {
-                return new List<string>(r_Garage.GarageVehicles.Keys);
+                licenseNumbers = new List<string>(r_Garage.GarageVehicles.Keys);
             }
             else
             {
-                List<string> filteredLicenseNumbers = new List<string>();
+                licenseNumbers = new List<string>();
 
                 foreach (KeyValuePair<string, GarageVehicle> garageVehiclePair in r_Garage.GarageVehicles)
                 {
                     if (garageVehiclePair.Value.VehicleStatus == filterStatus)
                     {
-                        filteredLicenseNumbers.Add(garageVehiclePair.Key);
+                        licenseNumbers.Add(garageVehiclePair.Key);
                     }
                 }
-
-                return filteredLicenseNumbers;
             }
+
+            return licenseNumbers;
         }
 
         public void LoadGarageVehiclesFromFile(string i_FilePath)
@@ -64,6 +66,7 @@ namespace Ex03.GarageLogic
             }
 
             string vehicleType = vehicleData[0];
+
             if (!validateVehicleType(vehicleType))
             {
                 throw new ArgumentException($"Unsupported vehicle type: {vehicleType}");

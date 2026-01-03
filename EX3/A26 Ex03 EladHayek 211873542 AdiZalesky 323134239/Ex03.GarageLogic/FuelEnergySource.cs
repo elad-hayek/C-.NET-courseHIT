@@ -3,7 +3,7 @@ using System;
 
 namespace Ex03.GarageLogic
 {
-    public class FuelEnergySource : EnergySource
+    public sealed class FuelEnergySource : EnergySource
     {
         private eFuelType m_FuelType;
 

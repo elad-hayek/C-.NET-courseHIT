@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
@@ -68,6 +67,7 @@ namespace Ex03.GarageLogic
             Dictionary<eVehicleQuestion, string> questionsDictionary = base.GetVehicleDataQuestions();
             questionsDictionary.Add(eVehicleQuestion.IsCarryingHazardousMaterials, "Is the truck carrying hazardous materials? (true/false)");
             questionsDictionary.Add(eVehicleQuestion.CargoVolume, "Please enter the cargo volume in cubic meters: ");
+
             return questionsDictionary;
         }
 

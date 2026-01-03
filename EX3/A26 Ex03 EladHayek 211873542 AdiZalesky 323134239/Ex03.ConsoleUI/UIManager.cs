@@ -11,12 +11,12 @@ namespace Ex03.ConsoleUI
         private readonly StringBuilder r_StringBuilder = new StringBuilder();
         private readonly GarageManager r_GarageManager = new GarageManager();
 
-        private string GetMenuOptions()
+        private string getMenuOptions()
         {
             r_StringBuilder.Clear();
             r_StringBuilder.AppendLine("Welcome to the Garage Management System!");
             r_StringBuilder.AppendLine("Choose your action:");
-            r_StringBuilder.AppendLine("1. Load vehicels from file");
+            r_StringBuilder.AppendLine("1. Load vehicles from file");
             r_StringBuilder.AppendLine("2. Add a new vehicle to the garage");
             r_StringBuilder.AppendLine("3. Display all license IDs in the garage");
             r_StringBuilder.AppendLine("4. Change vehicle status");
@@ -25,23 +25,24 @@ namespace Ex03.ConsoleUI
             r_StringBuilder.AppendLine("7. Recharge an electric vehicle");
             r_StringBuilder.AppendLine("8. Display vehicle details");
             r_StringBuilder.AppendLine("9. Exit");
+
             return r_StringBuilder.ToString();
         }
 
         private eMenuOption parseMenuOption(string i_UserInput)
         {
-            if (int.TryParse(i_UserInput, out int menuOptionNumber) && menuOptionNumber >= 1 && menuOptionNumber <= 9)
+            if (!int.TryParse(i_UserInput, out int menuOptionNumber) || menuOptionNumber < 1 || menuOptionNumber > 9)
             {
-                return (eMenuOption)menuOptionNumber;
+                throw new FormatException("Invalid menu option. Please enter a number between 1 and 9.");
             }
 
-            throw new FormatException("Invalid menu option. Please enter a number between 1 and 9.");
+            return (eMenuOption)menuOptionNumber;
         }
 
         public void ShowMenu()
         {
             bool isInputInvalid = true;
-            string menuOptions = GetMenuOptions();
+            string menuOptions = getMenuOptions();
             eMenuOption? menuOption = null;
 
             do
@@ -190,6 +191,7 @@ namespace Ex03.ConsoleUI
             string ownerPhoneNumber = getUserQuestionAnswer("Enter the owner's phone number: ");
             Vehicle vehicle = VehicleCreator.CreateVehicle(vehicleType, i_LicenseId, modelName);
             GarageVehicle garageVehicle = new GarageVehicle(vehicle, ownerName, ownerPhoneNumber);
+
             return garageVehicle;
         }
 
@@ -207,39 +209,40 @@ namespace Ex03.ConsoleUI
             Console.WriteLine(r_StringBuilder.ToString());
             string userInput = Console.ReadLine();
 
-            if (int.TryParse(userInput, out int userChoice) && userChoice >= 1 && userChoice <= 5)
+            if (!int.TryParse(userInput, out int userChoice) || userChoice < 1 || userChoice > 5)
             {
-                return vehicleTypes[userChoice - 1];
+                throw new FormatException("Invalid vehicle type choice.");
             }
 
-            throw new FormatException("Invalid vehicle type choice.");
+            return vehicleTypes[userChoice - 1];
         }
 
         private string getUserQuestionAnswer(string i_Question)
         {
             Console.WriteLine(i_Question);
             string userInput = Console.ReadLine();
+
             return userInput;
         }
 
         private eVehicleStatus parseVehicleStatus(string i_UserInput)
         {
-            if (int.TryParse(i_UserInput, out int vehicleStatusNumber) && vehicleStatusNumber >= 1 && vehicleStatusNumber <= 3)
+            if (!int.TryParse(i_UserInput, out int vehicleStatusNumber) || vehicleStatusNumber < 1 || vehicleStatusNumber > 3)
             {
-                return (eVehicleStatus)vehicleStatusNumber;
+                throw new FormatException("Invalid status number");
             }
 
-            throw new FormatException("Invalid status number");
+            return (eVehicleStatus)vehicleStatusNumber;
         }
 
         private eFuelType parseFuelType(string i_UserInput)
         {
-            if (int.TryParse(i_UserInput, out int fuelTypeNumber) && fuelTypeNumber >= 1 && fuelTypeNumber <= 5)
+            if (!int.TryParse(i_UserInput, out int fuelTypeNumber) || fuelTypeNumber < 1 || fuelTypeNumber > 4)
             {
-                return (eFuelType)fuelTypeNumber;
+                throw new FormatException("Invalid fuel type number");
             }
 
-            throw new FormatException("Invalid fuel type number");
+            return (eFuelType)fuelTypeNumber;
         }
 
         private void displayLicenseNumbers()
@@ -296,6 +299,7 @@ namespace Ex03.ConsoleUI
             GarageVehicle garageVehicle = null;
             string licenseNumber = Console.ReadLine();
             garageVehicle = r_GarageManager.GetVehicleByLicenseNumber(licenseNumber);
+
             return garageVehicle;
         }
 
@@ -328,6 +332,7 @@ namespace Ex03.ConsoleUI
             r_StringBuilder.AppendLine("2. Octan95");
             r_StringBuilder.AppendLine("3. Octan96");
             r_StringBuilder.AppendLine("4. Octan98");
+
             return r_StringBuilder.ToString();
         }
 
@@ -336,14 +341,12 @@ namespace Ex03.ConsoleUI
             Console.WriteLine($"Enter amount of {i_EnergyUnit} to add: ");
             string amountOfEnergyInput = Console.ReadLine();
 
-            if (float.TryParse(amountOfEnergyInput, out float amountOfEnergyToAdd))
-            {
-                return amountOfEnergyToAdd;
-            }
-            else
+            if (!float.TryParse(amountOfEnergyInput, out float amountOfEnergyToAdd))
             {
                 throw new FormatException($"Invalid amount of {i_EnergyUnit}.");
             }
+
+            return amountOfEnergyToAdd;
         }
 
         private void refuelVehicle()

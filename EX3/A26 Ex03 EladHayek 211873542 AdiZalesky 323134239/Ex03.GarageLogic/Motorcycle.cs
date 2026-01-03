@@ -65,16 +65,12 @@ namespace Ex03.GarageLogic
 
         private eLicenseType parseLicenseType(string i_LicenseType)
         {
-            bool licenseTypeParseSuccedded = Enum.TryParse(i_LicenseType, out eLicenseType licenseType);
-
-            if (licenseTypeParseSuccedded)
-            {
-                return licenseType;
-            }
-            else
+            if (!Enum.TryParse(i_LicenseType, out eLicenseType licenseType))
             {
                 throw new FormatException("Invalid license type option.");
             }
+            
+            return licenseType;
         }
 
         public override Dictionary<eVehicleQuestion, string> GetVehicleDataQuestions()
@@ -82,6 +78,7 @@ namespace Ex03.GarageLogic
             Dictionary<eVehicleQuestion, string> questionsDictionary = base.GetVehicleDataQuestions();
             questionsDictionary.Add(eVehicleQuestion.LicenseType, "Please enter the motorcycle license type (A1, A2, AA, B): ");
             questionsDictionary.Add(eVehicleQuestion.EngineCapacity, "Please enter the engine capacity (in cc): ");
+
             return questionsDictionary;
         }
 
