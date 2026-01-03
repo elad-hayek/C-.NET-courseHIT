@@ -147,8 +147,24 @@ namespace Ex03.ConsoleUI
 
                     foreach (KeyValuePair<eVehicleQuestion, string> question in garageVehicle.Vehicle.GetVehicleDataQuestions())
                     {
-                        string userAnswer = getUserQuestionAnswer(question.Value);
-                        garageVehicle.Vehicle.SetVehicleDataFromQuestionAnswer(question.Key, userAnswer);
+                        bool isValidAnswer = false;
+
+                        do
+                        {
+                            try
+                            {
+                                string userAnswer = getUserQuestionAnswer(question.Value);
+                                garageVehicle.Vehicle.SetVehicleDataFromQuestionAnswer(question.Key, userAnswer);
+                                isValidAnswer = true;
+                            }
+                            catch (Exception answerQuestionException)
+                            {
+                                Console.WriteLine($"Error: {answerQuestionException.Message}");
+                                Console.WriteLine("Please try again.");
+                                Console.WriteLine();
+                            }
+                        }
+                        while (!isValidAnswer);
                     }
 
                     r_GarageManager.AddVehicleToGarage(garageVehicle);

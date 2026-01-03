@@ -11,41 +11,41 @@ namespace Ex03.GarageLogic
         {
             r_GarageVehicles = new Dictionary<string, GarageVehicle>();
 
-            // TODO: remove this test data
-            GarageVehicle testVehicle1 = new GarageVehicle(new FuelTruck("111", "Ferari"), "John Doe", "050-1234567")
-            {
-                VehicleStatus = eVehicleStatus.Repaired
-            };
+            //// TODO: remove this test data
+            //GarageVehicle testVehicle1 = new GarageVehicle(new FuelTruck("111", "Ferari"), "John Doe", "050-1234567")
+            //{
+            //    VehicleStatus = eVehicleStatus.Repaired
+            //};
 
-            testVehicle1.Vehicle.EnergyPercentage = 33f;
+            //testVehicle1.Vehicle.EnergyPercentage = 33f;
 
-            GarageVehicle testVehicle2 = new GarageVehicle(new FuelCar("444", "Buick"), "John Doe2", "050-1234567")
-            {
-                VehicleStatus = eVehicleStatus.InRepair
-            };
+            //GarageVehicle testVehicle2 = new GarageVehicle(new FuelCar("444", "Buick"), "John Doe2", "050-1234567")
+            //{
+            //    VehicleStatus = eVehicleStatus.InRepair
+            //};
 
-            GarageVehicle testVehicle3 = new GarageVehicle(new ElectricCar("222", "Mistubish"), "John Doe3", "050-1234567")
-            {
-                VehicleStatus = eVehicleStatus.Paid
-            };
+            //GarageVehicle testVehicle3 = new GarageVehicle(new ElectricCar("222", "Mistubish"), "John Doe3", "050-1234567")
+            //{
+            //    VehicleStatus = eVehicleStatus.Paid
+            //};
 
-            testVehicle3.Vehicle.EnergyPercentage = 25f;
+            //testVehicle3.Vehicle.EnergyPercentage = 25f;
 
-            GarageVehicle testVehicle4 = new GarageVehicle(new FuelMotorcycle("333", "Honda"), "John Doe4", "050-1234567")
-            {
-                VehicleStatus = eVehicleStatus.Paid
-            };
+            //GarageVehicle testVehicle4 = new GarageVehicle(new FuelMotorcycle("333", "Honda"), "John Doe4", "050-1234567")
+            //{
+            //    VehicleStatus = eVehicleStatus.Paid
+            //};
 
-            foreach (Wheel wheel in testVehicle4.Vehicle.Wheels)
-            {
-                wheel.Inflate(15f);
-                wheel.ManufacturerName = "Goodyear";
-            }
+            //foreach (Wheel wheel in testVehicle4.Vehicle.Wheels)
+            //{
+            //    wheel.Inflate(15f);
+            //    wheel.ManufacturerName = "Goodyear";
+            //}
 
-            AddGarageVehicle(testVehicle1);
-            AddGarageVehicle(testVehicle2);
-            AddGarageVehicle(testVehicle3);
-            AddGarageVehicle(testVehicle4);
+            //AddGarageVehicle(testVehicle1);
+            //AddGarageVehicle(testVehicle2);
+            //AddGarageVehicle(testVehicle3);
+            //AddGarageVehicle(testVehicle4);
         }
 
         public Dictionary<string, GarageVehicle> GarageVehicles
@@ -58,7 +58,7 @@ namespace Ex03.GarageLogic
 
         public void AddGarageVehicle(GarageVehicle i_GarageVehicle)
         {
-            if(i_GarageVehicle == null)
+            if (i_GarageVehicle == null)
             {
                 throw new ArgumentNullException("i_GarageVehicle", "Garage vehicle cannot be null.");
             }
