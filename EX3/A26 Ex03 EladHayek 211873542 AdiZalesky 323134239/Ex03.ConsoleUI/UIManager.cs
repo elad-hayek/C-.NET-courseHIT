@@ -120,6 +120,8 @@ namespace Ex03.ConsoleUI
             try
             {
                 r_GarageManager.LoadGarageVehiclesFromFile("VehiclesDB.txt");
+                Console.WriteLine("Garage vehicles loaded successfully from file.");
+                Console.WriteLine();
             }
             catch (Exception exception)
             {

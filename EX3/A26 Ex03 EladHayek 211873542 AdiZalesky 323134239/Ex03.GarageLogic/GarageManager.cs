@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Ex03.GarageLogic
 {
@@ -88,9 +87,13 @@ namespace Ex03.GarageLogic
 
             if (vehicleData.Length > 8)
             {
+                string[] specificVehicleData = new string[vehicleData.Length - 8];
 
-                // TODO: dont use linq here
-                string[] specificVehicleData = vehicleData.Skip(8).ToArray();
+                for (int i = 8; i < vehicleData.Length; i++)
+                {
+                    specificVehicleData[i - 8] = vehicleData[i];
+                }
+
                 vehicle.SetSpecificVehicleData(specificVehicleData);
             }
 
