@@ -65,6 +65,8 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(exception.Message);
                 }
 
+                Console.WriteLine();
+
             } while (isInputInvalid || (menuOption.HasValue && menuOption.Value != eMenuOption.Exit));
         }
 
@@ -109,7 +111,6 @@ namespace Ex03.ConsoleUI
             {
                 GarageVehicle garageVehicle = getGarageVehicleFromUser();
                 Console.WriteLine(garageVehicle.ToString());
-                Console.WriteLine();
             }
             catch (Exception exception)
             {
@@ -123,7 +124,6 @@ namespace Ex03.ConsoleUI
             {
                 r_GarageManager.LoadGarageVehiclesFromFile("VehiclesDB.txt");
                 Console.WriteLine("Garage vehicles loaded successfully from file.");
-                Console.WriteLine();
             }
             catch (Exception exception)
             {
@@ -138,7 +138,6 @@ namespace Ex03.ConsoleUI
                 GarageVehicle garageVehicle = getGarageVehicleFromUser();
                 r_GarageManager.ChangeVehicleStatus(garageVehicle, eVehicleStatus.InRepair);
                 Console.WriteLine("Vehicle already exists in the garage. Status updated to 'In Repair'.");
-                Console.WriteLine();
             }
             catch (VehicleNotFoundException vehicleNotFoundException)
             {
@@ -170,7 +169,6 @@ namespace Ex03.ConsoleUI
 
                     r_GarageManager.AddVehicleToGarage(garageVehicle);
                     Console.WriteLine("Vehicle added successfully to the garage.");
-                    Console.WriteLine();
                 }
                 catch (Exception addNewVehicleException)
                 {

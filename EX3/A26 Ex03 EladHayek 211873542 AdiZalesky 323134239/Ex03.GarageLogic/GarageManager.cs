@@ -146,7 +146,7 @@ namespace Ex03.GarageLogic
 
             if (i_GarageVehicle.Vehicle.EnergyKind != eEnergyKind.Fuel)
             {
-                throw new ArgumentException("The vehicle provided is not runing of fuel");
+                throw new ArgumentException("The vehicle provided is not runing on fuel");
             }
 
             i_GarageVehicle.Vehicle.AddEnergy(i_AmountOfFuelToAdd, i_FuelType);
