@@ -49,10 +49,12 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            return string.Format("{0}{3}License Type: {1}{3}Engine Capacity: {2}cc",
+            string engineCapacityString = m_EnergyKind == eEnergyKind.Fuel ? $"{m_EngineCapacity.ToString()}cc" : "N/A";
+
+            return string.Format("{0}{3}License Type: {1}{3}Engine Capacity: {2}",
                 base.ToString(),
                 m_LicenseType,
-                m_EngineCapacity,
+                engineCapacityString,
                 Environment.NewLine);
         }
 
@@ -60,7 +62,11 @@ namespace Ex03.GarageLogic
         {
             string licenseTypeString = i_VehicleSpecificData[0];
             LicenseType = parseLicenseType(licenseTypeString);
-            EngineCapacity = int.Parse(i_VehicleSpecificData[1]);
+
+            if(m_EnergyKind == eEnergyKind.Fuel)
+            {
+                EngineCapacity = int.Parse(i_VehicleSpecificData[1]);
+            }
         }
 
         private eLicenseType parseLicenseType(string i_LicenseType)
