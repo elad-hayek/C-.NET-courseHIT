@@ -10,10 +10,10 @@ namespace Ex03.GarageLogic
 
         public override void AddEnergy(float i_AmountToAdd, eFuelType? i_FuelType = null)
         {
-            recharge(i_AmountToAdd);
+            Recharge(i_AmountToAdd);
         }
 
-        public void recharge(float i_MinutesToAdd)
+        public void Recharge(float i_MinutesToAdd)
         {
             if (i_MinutesToAdd <= 0)
             {
