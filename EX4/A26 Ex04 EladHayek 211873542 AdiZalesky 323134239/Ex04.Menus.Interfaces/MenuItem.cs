@@ -2,19 +2,18 @@
 
 namespace Ex04.Menus.Interfaces
 {
-
     public abstract class MenuItem
     {
         private readonly string r_Title;
         protected MenuItem m_ParentMenuItem;
-        private IProgramExitable r_ProgeamExitable;
+        private IProgramExitable r_ProgramExitable;
 
         protected MenuItem(string i_Title)
         {
             r_Title = i_Title;
         }
 
-        public IProgramExitable ProgeamExitable
+        public IProgramExitable ProgramExitable
         {
             set 
             {
@@ -23,7 +22,7 @@ namespace Ex04.Menus.Interfaces
                     throw new ArgumentNullException("Program exitable cannot be null");
                 }
 
-                r_ProgeamExitable = value;
+                r_ProgramExitable = value;
             }
         }
 
@@ -62,7 +61,7 @@ namespace Ex04.Menus.Interfaces
             }
             else
             {
-                r_ProgeamExitable.Exit();
+                r_ProgramExitable.Exit();
             }
         }
     }

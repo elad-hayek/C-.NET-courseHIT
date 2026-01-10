@@ -54,7 +54,6 @@ namespace Ex04.Menus.Events
             }
 
             Console.WriteLine($"0. {getBackOptionTitle()}");
-
             int userChoice = getUserChoice();
 
             if (userChoice == 0)
@@ -70,8 +69,7 @@ namespace Ex04.Menus.Events
 
         private int getUserChoice()
         {
-            int choice;
-            choice = 0;
+            int choice = 0;
             bool isValidChoice = false;
 
             while (!isValidChoice)

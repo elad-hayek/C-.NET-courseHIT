@@ -3,7 +3,7 @@ using System;
 
 namespace Ex04.Menus.Test
 {
-    public class ShowVerionProvider : IMenuItemActionProvider
+    public class ShowVersionProvider : IMenuItemActionProvider
     {
         void IMenuItemActionProvider.OnMenuItemSelected()
         {

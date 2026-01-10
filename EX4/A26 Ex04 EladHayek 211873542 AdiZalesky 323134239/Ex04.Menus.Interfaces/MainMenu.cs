@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace Ex04.Menus.Interfaces
 {
@@ -9,13 +7,9 @@ namespace Ex04.Menus.Interfaces
         private bool m_IsRunning = true;
         private MenuItem m_MenuItem;
 
-        public MainMenu()
-        {
-        }
-
         public void Show()
         {
-           while(m_IsRunning)
+           while (m_IsRunning)
            {
                if (m_MenuItem != null)
                {
@@ -30,7 +24,7 @@ namespace Ex04.Menus.Interfaces
 
         public void CreateMenu(MenuItem i_RootMenuItem)
         {
-            i_RootMenuItem.ProgeamExitable = this;
+            i_RootMenuItem.ProgramExitable = this;
             m_MenuItem = i_RootMenuItem;
         }
 

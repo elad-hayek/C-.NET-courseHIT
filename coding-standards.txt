@@ -1,0 +1,185 @@
+C# Coding Standards and Style Guide
+
+All code must follow strict naming, structure, and formatting rules to ensure readability, consistency, and maintainability.
+
+Variables and class members must always be declared with meaningful names, even if they become very long. Loop indices that have no special meaning may be named i, j, etc., and this is acceptable. Local variables must start with a lowercase letter, and every new word must start with an uppercase letter (camelCase).
+Example:
+int numOfItems; is GOOD, while int numofitems;, int NumOfItems;, and int NUMOFITEMS; are BAD.
+
+Local const bool values must always start with v_ and use CamelCase. They must always be assigned true, and negation must be done using ! when passing a negative value. These constants must be used instead of literal true or false values when calling methods.
+GOOD example:
+
+const bool v_IncludeSubFolders = true;
+SearchEngine.FindLine(@"C:\Folder", v_IncludeSubFolders);
+SearchEngine.FindLine(@"C:\Folder", !v_IncludeSubFolders);
+
+
+BAD example:
+
+SearchEngine.FindLine(@"C:\Folder", true);
+SearchEngine.FindLine(@"C:\Folder", false);
+
+
+Class and struct members must follow strict prefixes. Regular members start with m_, const members start with k_, static members start with s_, readonly members start with r_, and static readonly members start with sr_.
+Examples:
+
+private int m_NumOfItems;                 // GOOD
+protected const int k_MaxItems = 20;      // GOOD
+protected static int s_TotalItems = 100;  // GOOD
+protected readonly int r_Id;              // GOOD
+protected static readonly int sr_Limit;   // GOOD
+
+
+All control statements must use curly braces, even when the body contains a single line.
+GOOD:
+
+if (condition)
+{
+    DoSomething();
+}
+else
+{
+    DoSomethingElse();
+}
+
+
+BAD:
+
+if (condition)
+    DoSomething();
+
+
+The same rule applies to loops.
+GOOD:
+
+for (int i = 0; i < 10; ++i)
+{
+    DoWork();
+}
+
+
+BAD:
+
+for (int i = 0; i < 10; ++i)
+    DoWork();
+
+
+Properties, methods, and indexers must use CamelCase without underscores. Public and protected methods use PascalCase, while private methods start with a lowercase letter.
+GOOD:
+
+public int GetNumOfItems();
+protected int GetNumOfItems();
+private int getNumOfItems();
+
+
+BAD:
+
+public int get_num_of_items();
+public int GETNUMOFITEMS();
+
+
+Method declarations must appear on a single line, use spaces (not tabs) between parameters, and if there are many parameters, they may be split across multiple lines for readability. Parameters must always have meaningful names and must be prefixed as follows: i_ for input-only, o_ for output-only, and io_ for both input and output.
+GOOD:
+
+protected void AddCustomer(string i_Name, int i_Age);
+
+private string addProducer(
+    string i_Name,
+    ref string io_PhoneNumber,
+    out string o_Age);
+
+
+BAD:
+
+protected void AddCustomer(string i_Name,int i_Age);
+private string addProducer(string name, ref string phone, out string age);
+
+
+Classes and structs must have meaningful names and use PascalCase.
+Example:
+
+public class CustomerAccount { }
+
+
+Enums must have meaningful names, use PascalCase, and must be prefixed with e. Flag enums must use a plural name. Enum values themselves must be PascalCase and must not be prefixed.
+GOOD:
+
+public enum eFuelType
+{
+    Octan95,
+    Octan96,
+    Octan98
+}
+
+[Flags]
+public enum eFuelTypes
+{
+    Octan95,
+    Octan96,
+    Octan98
+}
+
+
+BAD:
+
+public enum Fuel_Type
+{
+    eftOctan95,
+    octan95,
+    octan_98
+}
+
+
+Delegates must be named like classes and end with the suffix Delegate. Delegates intended to be event handlers must end with EventHandler. Events must be named using CamelCase and describe an action. Event handler methods in subscribers must be named using the format <InstanceName>_<EventName>, and internal event-raising methods must be named On<EventName>.
+Example:
+
+public delegate void ErrorNotificationDelegate(string i_ErrorMsg);
+public event EventHandler Closed;
+
+private void buttonOK_Click(object sender, EventArgs e) { }
+
+protected virtual void OnClick(EventArgs e)
+{
+    if (Click != null)
+    {
+        Click.Invoke(this, e);
+    }
+}
+
+
+Boolean assignments should be written directly instead of using if/else.
+BAD:
+
+if (age > 50)
+{
+    isOldMan = true;
+}
+else
+{
+    isOldMan = false;
+}
+
+
+GOOD:
+
+isOldMan = age > 50;
+
+
+Duplicated code inside if/else blocks must be avoided by extracting common logic outside the condition.
+
+Indentation must use TABs only, never spaces. Each nested block must be indented relative to its parent block.
+
+No double blank lines are allowed, and redundant empty lines must be avoided. Spaces must be used around operators and between method parameters, but never before method parentheses.
+GOOD:
+
+x = t + 5;
+Console.WriteLine("Hello {0}", name);
+
+
+BAD:
+
+x=t+5;
+Console.WriteLine ("Hello {0}", name);
+
+
+Blank lines must be used after local variable declarations, after closing braces (unless followed by another brace or else), and before a return statement. Every method must contain only one return statement, and methods should primarily act as a flow that calls other methods rather than containing large blocks of logic.

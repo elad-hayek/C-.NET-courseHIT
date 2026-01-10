@@ -51,8 +51,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="ShowCurrentDateProvider.cs" />
     <Compile Include="ShowCurrentTimeProvider.cs" />
-    <Compile Include="ShowVerionProvider.cs" />
-    <Compile Include="TestCreator.cs" />
+    <Compile Include="ShowVersionProvider.cs" />
+    <Compile Include="EventsTestCreator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

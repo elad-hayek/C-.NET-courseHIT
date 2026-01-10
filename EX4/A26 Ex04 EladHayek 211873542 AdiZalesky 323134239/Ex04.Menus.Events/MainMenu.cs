@@ -7,10 +7,6 @@ namespace Ex04.Menus.Events
         private bool m_IsRunning = true;
         private MenuItem m_MenuItem;
 
-        public MainMenu()
-        {
-        }
-
         public void Show()
         {
             while (m_IsRunning)
@@ -32,7 +28,6 @@ namespace Ex04.Menus.Events
             m_MenuItem.IsMenuRoot = true;
             m_MenuItem.ExitProgram += menuItem_ExitRequested;
         }
-
 
         private void menuItem_ExitRequested()
         {

@@ -49,8 +49,8 @@ namespace Ex04.Menus.Interfaces
             }
 
             Console.WriteLine($"0. {getBackOptionTitle()}");
-
             int userChoice = getUserChoice();
+
             if (userChoice == 0)
             {
                 const bool v_ClearConsole = true;
@@ -64,8 +64,7 @@ namespace Ex04.Menus.Interfaces
 
         private int getUserChoice()
         {
-            int choice;
-            choice = 0;
+            int choice = 0;
             bool isValidChoice = false;
 
             while (!isValidChoice)
