@@ -22,6 +22,11 @@ namespace Ex04.Menus.Events
             return IsMenuRoot ? "Exit" : "Back";
         }
 
+        private string getPromptBackOptionTitle()
+        {
+            return IsMenuRoot ? "exit" : "go back";
+        }
+
         private void menuItem_GoBack(bool i_ClearConsole)
         {
             Activate(i_ClearConsole);
@@ -71,7 +76,7 @@ namespace Ex04.Menus.Events
 
             while (!isValidChoice)
             {
-                Console.WriteLine($"Please enter your choice (1-{r_SubMenuItems.Count} or 0 to go back):");
+                Console.WriteLine($"Please enter your choice (1-{r_SubMenuItems.Count} or 0 to {getPromptBackOptionTitle()}):");
                 Console.Write(">> ");
                 string input = Console.ReadLine();
 
