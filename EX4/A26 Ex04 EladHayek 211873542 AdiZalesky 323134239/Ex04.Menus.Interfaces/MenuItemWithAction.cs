@@ -16,7 +16,7 @@ namespace Ex04.Menus.Interfaces
             }
         }
 
-        public override void Activate(bool i_ClearConsole = true)
+        public override void Activate(bool i_ClearConsole = false)
         {
             if (r_ActionProvider != null)
             {

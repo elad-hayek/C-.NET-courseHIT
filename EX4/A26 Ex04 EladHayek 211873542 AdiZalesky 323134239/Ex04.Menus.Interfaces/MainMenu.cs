@@ -28,10 +28,10 @@ namespace Ex04.Menus.Interfaces
            }
         }
 
-        public void CreateMenu(MenuItem i_MenuItem)
+        public void CreateMenu(MenuItem i_RootMenuItem)
         {
-            i_MenuItem.ProgeamExitable = this;
-            m_MenuItem = i_MenuItem;
+            i_RootMenuItem.ProgeamExitable = this;
+            m_MenuItem = i_RootMenuItem;
         }
 
         void IProgramExitable.Exit()

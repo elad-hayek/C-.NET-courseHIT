@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Ex04.Menus.Interfaces
+namespace Ex04.Menus.Events
 {
     public class MenuItemWithSubMenu : MenuItem
     {
@@ -13,18 +13,23 @@ namespace Ex04.Menus.Interfaces
 
         public void AddSubMenuItem(MenuItem i_SubMenuItem)
         {
-            i_SubMenuItem.ParentMenuItem = this;
+            i_SubMenuItem.GoBackSelected += menuItem_GoBack;
             r_SubMenuItems.Add(i_SubMenuItem);
         }
 
         private string getBackOptionTitle()
         {
-            return m_ParentMenuItem == null ? "Exit" : "Back";
+            return IsMenuRoot ? "Exit" : "Back";
+        }
+
+        private void menuItem_GoBack(bool i_ClearConsole)
+        {
+            Activate(i_ClearConsole);
         }
 
         public override void Activate(bool i_ClearConsole = true)
         {
-            if(i_ClearConsole)
+            if (i_ClearConsole)
             {
                 Console.Clear();
             }
@@ -46,6 +51,7 @@ namespace Ex04.Menus.Interfaces
             Console.WriteLine($"0. {getBackOptionTitle()}");
 
             int userChoice = getUserChoice();
+
             if (userChoice == 0)
             {
                 const bool v_ClearConsole = true;

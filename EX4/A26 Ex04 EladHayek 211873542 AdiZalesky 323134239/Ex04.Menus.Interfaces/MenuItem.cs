@@ -46,12 +46,15 @@ namespace Ex04.Menus.Interfaces
 
         public string Title
         {
-            get { return r_Title; }
+            get 
+            {
+                return r_Title; 
+            }
         }
 
         public abstract void Activate(bool i_ClearConsole = true);
 
-        protected void GoBack(bool i_ClearConsole = true)
+        protected void GoBack(bool i_ClearConsole)
         {
             if(m_ParentMenuItem != null)
             {
