@@ -9,6 +9,11 @@ namespace Ex04.Menus.Interfaces
         public MenuItemWithAction(string i_Title, IMenuItemActionProvider i_ActionProvider) : base(i_Title)
         {
             r_ActionProvider = i_ActionProvider;
+
+            if (r_ActionProvider == null)
+            {
+                throw new ArgumentNullException("Action provider cannot be null");
+            }
         }
 
         public override void Activate(bool i_ClearConsole = true)

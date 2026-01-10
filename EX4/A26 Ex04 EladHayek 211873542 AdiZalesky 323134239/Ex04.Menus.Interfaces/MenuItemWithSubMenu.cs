@@ -72,8 +72,10 @@ namespace Ex04.Menus.Interfaces
                 {
                     isValidChoice = true;
                 }
-
-                Console.WriteLine("Invalid choice. Please try again.");
+                else
+                {
+                    Console.WriteLine("Invalid choice. Please try again.");
+                }
             }
 
             return choice;
