@@ -41,7 +41,7 @@ namespace Ex04.Menus.Events
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine($"** {Title} **");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("--------------------------");
+            Console.WriteLine(new string('-', Title.Length + 6));
 
             for (int i = 0; i < r_SubMenuItems.Count; i++)
             {
