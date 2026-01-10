@@ -1,10 +1,16 @@
-﻿using System;
+﻿using Ex04.Menus.Interfaces;
+using System;
 
-namespace Ex04.Menus.Interfaces
+namespace Ex04.Menus.Test
 {
     public class CountLowercaseProvider : IMenuItemActionProvider
     {
         void IMenuItemActionProvider.OnMenuItemSelected()
+        {
+            CountLowercaseLetters();
+        }
+
+        public void CountLowercaseLetters()
         {
             Console.WriteLine("Please enter a string:");
             string userInput = Console.ReadLine();

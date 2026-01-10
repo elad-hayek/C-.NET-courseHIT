@@ -46,7 +46,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CountLowercaseProvider.cs" />
+    <Compile Include="IntrefacesTestCreator.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ShowCurrentDateProvider.cs" />
+    <Compile Include="ShowCurrentTimeProvider.cs" />
+    <Compile Include="ShowVerionProvider.cs" />
     <Compile Include="TestCreator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -39,16 +39,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CountLowercaseProvider.cs" />
     <Compile Include="IProgramExitable.cs" />
     <Compile Include="IMenuItemActionProvider.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="MenuItem.cs" />
     <Compile Include="MenuItemWithAction.cs" />
     <Compile Include="MenuItemWithSubMenu.cs" />
-    <Compile Include="ShowCurrentDateProvider.cs" />
-    <Compile Include="ShowCurrentTimeProvider.cs" />
-    <Compile Include="ShowVerionProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

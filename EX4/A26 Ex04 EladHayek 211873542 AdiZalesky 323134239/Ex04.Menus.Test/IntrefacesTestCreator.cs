@@ -1,19 +1,19 @@
-﻿using Ex04.Menus.Events;
+﻿using Ex04.Menus.Interfaces;
 
 namespace Ex04.Menus.Test
 {
-     public class EventsTestCreator
-     {
+    public class IntrefacesTestCreator
+    {
         private readonly CountLowercaseProvider r_CountLowercaseProvider = new CountLowercaseProvider();
         private readonly ShowVerionProvider r_ShowVerionProvider = new ShowVerionProvider();
         private readonly ShowCurrentTimeProvider r_ShowCurrentTimeProvider = new ShowCurrentTimeProvider();
         private readonly ShowCurrentDateProvider r_ShowCurrentDateProvider = new ShowCurrentDateProvider();
 
-        public MainMenu CreateEventsMenu()
+        public MainMenu CreateInterfacesMenu()
         {
-            MenuItemWithSubMenu systemLevelMenu = new MenuItemWithSubMenu("Events Main Menu");
-            MenuItem versionAndLowerCaseMenu = createEventsVersionAndLowercaseSubMenu();
-            MenuItem dateAndTimeMenu = createEventsDateAndTimeSubMenu();
+            MenuItemWithSubMenu systemLevelMenu = new MenuItemWithSubMenu("Interfaces Main Menu");
+            MenuItem versionAndLowerCaseMenu = createInterfacesVersionAndLowercaseSubMenu();
+            MenuItem dateAndTimeMenu = createInterfacesDateAndTimeSubMenu();
             systemLevelMenu.AddSubMenuItem(versionAndLowerCaseMenu);
             systemLevelMenu.AddSubMenuItem(dateAndTimeMenu);
             MainMenu mainMenu = new MainMenu();
@@ -22,30 +22,27 @@ namespace Ex04.Menus.Test
             return mainMenu;
         }
 
-        private MenuItem createEventsVersionAndLowercaseSubMenu()
+        private MenuItem createInterfacesVersionAndLowercaseSubMenu()
         {
             MenuItemWithSubMenu versionAndLowerCaseMenu = new MenuItemWithSubMenu("Version and Lowercase");
-            MenuItemWithAction showVersionMenuItem = new MenuItemWithAction("Show Version");
-            MenuItemWithAction countLowercaseMenuItem = new MenuItemWithAction("Count Lowercase");
-            showVersionMenuItem.Selected += r_ShowVerionProvider.ShowVersion;
-            countLowercaseMenuItem.Selected += r_CountLowercaseProvider.CountLowercaseLetters;
+            MenuItemWithAction showVersionMenuItem = new MenuItemWithAction("Show Version", r_ShowVerionProvider);
+            MenuItemWithAction countLowercaseMenuItem = new MenuItemWithAction("Count Lowercase", r_CountLowercaseProvider);
             versionAndLowerCaseMenu.AddSubMenuItem(showVersionMenuItem);
             versionAndLowerCaseMenu.AddSubMenuItem(countLowercaseMenuItem);
 
             return versionAndLowerCaseMenu;
         }
 
-        private MenuItem createEventsDateAndTimeSubMenu()
+        private MenuItem createInterfacesDateAndTimeSubMenu()
         {
             MenuItemWithSubMenu dateAndTimeMenu = new MenuItemWithSubMenu("Show Current Date/Time");
-            MenuItemWithAction showCurrentTimeMenuItem = new MenuItemWithAction("Show Current Time");
-            MenuItemWithAction showCurrentDateMenuItem = new MenuItemWithAction("Show Current Date");
-            showCurrentTimeMenuItem.Selected += r_ShowCurrentTimeProvider.ShowCurrentTime;
-            showCurrentDateMenuItem.Selected += r_ShowCurrentDateProvider.ShowCurrentDate;
+            MenuItemWithAction showCurrentTimeMenuItem = new MenuItemWithAction("Show Current Time", r_ShowCurrentTimeProvider);
+            MenuItemWithAction showCurrentDateMenuItem = new MenuItemWithAction("Show Current Date", r_ShowCurrentDateProvider);
             dateAndTimeMenu.AddSubMenuItem(showCurrentTimeMenuItem);
             dateAndTimeMenu.AddSubMenuItem(showCurrentDateMenuItem);
 
             return dateAndTimeMenu;
         }
+
     }
 }

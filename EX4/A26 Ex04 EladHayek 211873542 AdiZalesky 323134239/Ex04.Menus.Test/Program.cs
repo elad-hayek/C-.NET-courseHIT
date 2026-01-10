@@ -6,10 +6,12 @@ namespace Ex04.Menus.Test
     {
         public static void Main()
         {
-            Interfaces.MainMenu interfacesMenu = TestCreator.CreateInterfacesMenu();
+            IntrefacesTestCreator intrefacesTestCreator = new IntrefacesTestCreator();
+            Interfaces.MainMenu interfacesMenu = intrefacesTestCreator.CreateInterfacesMenu();
             interfacesMenu.Show();
 
-            Events.MainMenu eventsMenu = TestCreator.CreateEventsMenu();
+            EventsTestCreator eventsTestCreator = new EventsTestCreator();
+            Events.MainMenu eventsMenu = eventsTestCreator.CreateEventsMenu();
             eventsMenu.Show();
         }
     }
