@@ -26,9 +26,24 @@ namespace Ex05.UI
 
         private void m_ButtonStart_Click(object sender, EventArgs e)
         {
-            GameManagerCreationParameters argumets = new GameManagerCreationParameters();
+            GameManagerCreationParameters gameManagerParameters = new GameManagerCreationParameters();
+            gameManagerParameters.BoardHeight = (int)m_NumericUpDownRows.Value;
+            gameManagerParameters.BoardWidth = (int)m_NumericUpDownCols.Value;
+            gameManagerParameters.Player1Name = m_TextBoxPlayer1.Text;
+
+            if (m_CheckBoxPlayer2.Checked)
+            {
+                gameManagerParameters.GameMode = eGameMode.PlayerVsPlayer;
+                gameManagerParameters.Player2Name = m_TextBoxPlayer2.Text;
+            }
+            else
+            {
+                gameManagerParameters.GameMode = eGameMode.PlayerVsComputer;
+                gameManagerParameters.Player2Name = "Computer";
+            }
+
             Hide();
-            FourInARowForm fourInARowForm = new FourInARowForm();
+            FourInARowForm fourInARowForm = new FourInARowForm(gameManagerParameters);
             fourInARowForm.ShowDialog();
         }
 

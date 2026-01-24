@@ -60,6 +60,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FourInARowForm.resx">
+      <DependentUpon>FourInARowForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameSettingsForm.resx">
       <DependentUpon>GameSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
