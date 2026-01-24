@@ -26,10 +26,10 @@ namespace Ex05.UI
         {
             InitializeComponent();
             r_GameManager = new GameManager(i_GameManagerParameters);
-            initializeComponents(i_GameManagerParameters);
+            initializeDynamicComponents(i_GameManagerParameters);
         }
 
-        private void initializeComponents(GameManagerCreationParameters i_GameManagerParameters)
+        private void initializeDynamicComponents(GameManagerCreationParameters i_GameManagerParameters)
         {
             int boardWidth = (i_GameManagerParameters.BoardWidth * k_ButtonWidth) + ((i_GameManagerParameters.BoardWidth - 1) * k_MarginSize);
             int boardHeight = (i_GameManagerParameters.BoardHeight * k_CellButtonHeight) + ((i_GameManagerParameters.BoardHeight - 1) * k_MarginSize);
