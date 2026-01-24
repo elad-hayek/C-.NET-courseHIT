@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using Ex05.Logic;
+using System.Windows.Forms;
 
 namespace Ex05.UI
 {
@@ -6,7 +7,7 @@ namespace Ex05.UI
     {
         static void Main()
         {
-            Form form = new Form();
+            GameSettingsForm form = new GameSettingsForm();
             form.ShowDialog();
         }
     }

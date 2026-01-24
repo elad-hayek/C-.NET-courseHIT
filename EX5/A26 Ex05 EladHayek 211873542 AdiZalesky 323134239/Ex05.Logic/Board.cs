@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Ex02_1
+namespace Ex05.Logic
 {
     public class Board
     {
         private readonly GameChip?[,] r_BoardMatrix;
         private const int k_MinBoardDimension = 4;
-        private const int k_MaxBoardDimension = 8;
+        private const int k_MaxBoardDimension = 10;
         private readonly int r_Height;
         private readonly int r_Width;
 

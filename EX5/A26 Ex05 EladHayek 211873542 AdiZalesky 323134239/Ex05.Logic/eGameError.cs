@@ -1,4 +1,4 @@
-﻿namespace Ex02_1
+﻿namespace Ex05.Logic
 {
     public enum eGameError
     {

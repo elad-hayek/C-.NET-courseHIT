@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Ex05.UI
 {
-    public partial class Form1 : Form
+    public partial class FourInARowForm : Form
     {
-        public Form1()
+        public FourInARowForm()
         {
             InitializeComponent();
         }
