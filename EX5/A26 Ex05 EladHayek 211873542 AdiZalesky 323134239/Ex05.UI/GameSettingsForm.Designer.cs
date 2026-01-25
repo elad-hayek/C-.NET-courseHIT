@@ -193,6 +193,7 @@
             this.MinimizeBox = false;
             this.Name = "GameSettingsForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game Settings";
             ((System.ComponentModel.ISupportInitialize)(this.m_NumericUpDownRows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_NumericUpDownCols)).EndInit();
