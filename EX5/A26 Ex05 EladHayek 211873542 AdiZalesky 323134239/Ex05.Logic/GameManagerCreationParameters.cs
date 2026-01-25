@@ -8,7 +8,8 @@
         private string m_Player1Name;
         private string m_Player2Name;
 
-        public int BoardHeight { 
+        public int BoardHeight 
+        { 
             get
             {
                 return m_BoardHeight;
@@ -71,6 +72,5 @@
                 m_Player2Name = value;
             }
         }
-
     }
 }

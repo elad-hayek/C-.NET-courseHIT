@@ -10,7 +10,6 @@ namespace Ex05.Logic
         private const int k_MaxBoardDimension = 10;
         private readonly int r_Height;
         private readonly int r_Width;
-
         public event Action<int, int, char> UpdateBoard;
         public event Action<int> ColumnFull;
 

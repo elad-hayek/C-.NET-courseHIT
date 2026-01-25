@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace Ex05.Logic
 {
-
-
     public class GameManager
     {
         private Board m_Board;
@@ -13,7 +11,6 @@ namespace Ex05.Logic
         private bool m_IsGameOver;
         private readonly Random r_Random;
         private Player m_CurrentPlayer;
-
         public event Action<Player> GameOver;
         public event Action<int, int, char> UpdateBoard;
         public event Action ClearBoard;

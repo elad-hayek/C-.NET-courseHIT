@@ -1,12 +1,6 @@
 ﻿using Ex05.Logic;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Ex05.UI
@@ -29,7 +23,6 @@ namespace Ex05.UI
             InitializeComponent();
             r_GameManager = new GameManager(i_GameManagerParameters);
             initializeDynamicComponents(i_GameManagerParameters);
-
             r_GameManager.UpdateBoard += gameManager_UpdateBoard;
             r_GameManager.ClearBoard += gameManager_ClearBoard;
             r_GameManager.UpdateScore += gameManager_UpdateScore;
@@ -61,11 +54,7 @@ namespace Ex05.UI
 
             if (anotherRound)
             {
-                foreach(Button columnButton in m_ColumnNumberButtons)
-                {
-                    columnButton.Enabled = true;
-                }
-
+                enableAllColumnButtons();
                 r_GameManager.HandleEndOfRound();
             }
             else
@@ -96,17 +85,14 @@ namespace Ex05.UI
 
         private void initializeDynamicComponents(GameManagerCreationParameters i_GameManagerParameters)
         {
-            int boardWidth = (i_GameManagerParameters.BoardWidth * k_ButtonWidth) + ((i_GameManagerParameters.BoardWidth - 1) * k_MarginSize);
-            int boardHeight = (i_GameManagerParameters.BoardHeight * k_CellButtonHeight) + ((i_GameManagerParameters.BoardHeight - 1) * k_MarginSize);
-            
-            Width = boardWidth + (2 * k_MarginSize) + k_FormBorderWidth;
-            Height = boardHeight + (3 * k_MarginSize) + k_CellButtonHeight + k_FormBorderHeight + m_LabelPlayer1Name.Height;
-
             m_LabelPlayer1Name.Text = $"{i_GameManagerParameters.Player1Name}:";
             m_LabelPlayer2Name.Text = $"{i_GameManagerParameters.Player2Name}:";
             m_LabelPlayer1Score.Text = "0";
             m_LabelPlayer2Score.Text = "0";
-
+            int boardWidth = (i_GameManagerParameters.BoardWidth * k_ButtonWidth) + ((i_GameManagerParameters.BoardWidth - 1) * k_MarginSize);
+            int boardHeight = (i_GameManagerParameters.BoardHeight * k_CellButtonHeight) + ((i_GameManagerParameters.BoardHeight - 1) * k_MarginSize);
+            Width = boardWidth + (2 * k_MarginSize) + k_FormBorderWidth;
+            Height = boardHeight + (3 * k_MarginSize) + k_CellButtonHeight + k_FormBorderHeight + m_LabelPlayer1Name.Height;
             int boardTop = (k_MarginSize * 2) + k_ColumnButtonHeight;
             int labelsTop = boardTop + boardHeight + k_MarginSize;
 
@@ -148,19 +134,13 @@ namespace Ex05.UI
             int player1GroupWidth = m_LabelPlayer1Name.Width + m_LabelPlayer1Score.Width;
             int player2GroupWidth = m_LabelPlayer2Name.Width + m_LabelPlayer2Score.Width;
             int totalLabelsWidth = player1GroupWidth + k_LabelGroupsGap + player2GroupWidth;
-
             int clientWidth = i_BoardWidth + (2 * k_MarginSize);
-            int startX = (clientWidth - totalLabelsWidth) / 2;
-
-            m_LabelPlayer1Name.Left = startX;
+            m_LabelPlayer1Name.Left = (clientWidth - totalLabelsWidth) / 2;
             m_LabelPlayer1Name.Top = i_LabelsTop;
-
             m_LabelPlayer1Score.Left = m_LabelPlayer1Name.Right;
             m_LabelPlayer1Score.Top = i_LabelsTop;
-
             m_LabelPlayer2Name.Left = m_LabelPlayer1Score.Right + k_LabelGroupsGap;
             m_LabelPlayer2Name.Top = i_LabelsTop;
-
             m_LabelPlayer2Score.Left = m_LabelPlayer2Name.Right;
             m_LabelPlayer2Score.Top = i_LabelsTop;
         }
@@ -169,8 +149,15 @@ namespace Ex05.UI
         {
             Button columnButton = sender as Button;
             int columnNumber = int.Parse(columnButton.Text) - 1;
-
             r_GameManager.PlayTurn(columnNumber);
+        }
+
+        private void enableAllColumnButtons()
+        {
+            foreach (Button columnButton in m_ColumnNumberButtons)
+            {
+                columnButton.Enabled = true;
+            }
         }
 
         private void gameManager_UpdateBoard(int i_Row, int i_Col, char i_PlayerSymbol)

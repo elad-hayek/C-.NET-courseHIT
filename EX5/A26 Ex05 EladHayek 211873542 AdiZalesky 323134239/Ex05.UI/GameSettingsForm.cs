@@ -1,12 +1,5 @@
 ﻿using Ex05.Logic;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Ex05.UI
@@ -54,30 +47,23 @@ namespace Ex05.UI
                 m_TextBoxPlayer2.Enabled = false;
                 m_TextBoxPlayer2.Text = "[Computer]";
             }
+
+            updateStartButtonState();
         }
 
         private void m_TextBoxPlayer1_TextChanged(object sender, EventArgs e)
         {
-            if(m_TextBoxPlayer1.Text.Length == 0 || m_TextBoxPlayer2.Text.Length == 0)
-            {
-                m_ButtonStart.Enabled = false;
-            }
-            else
-            {
-                m_ButtonStart.Enabled = true;
-            }
+            updateStartButtonState();
         }
 
         private void m_TextBoxPlayer2_TextChanged(object sender, EventArgs e)
         {
-            if (m_TextBoxPlayer1.Text.Length == 0 || m_TextBoxPlayer2.Text.Length == 0)
-            {
-                m_ButtonStart.Enabled = false;
-            }
-            else
-            {
-                m_ButtonStart.Enabled = true;
-            }
+            updateStartButtonState();
+        }
+
+        private void updateStartButtonState()
+        {
+            m_ButtonStart.Enabled = m_TextBoxPlayer1.Text.Length > 0 && m_TextBoxPlayer2.Text.Length > 0;
         }
     }
 }
