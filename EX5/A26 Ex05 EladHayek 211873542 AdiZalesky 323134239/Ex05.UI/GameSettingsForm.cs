@@ -45,6 +45,7 @@ namespace Ex05.UI
             Hide();
             FourInARowForm fourInARowForm = new FourInARowForm(gameManagerParameters);
             fourInARowForm.ShowDialog();
+            Close();
         }
 
         private void m_CheckBoxPlayer2_CheckedChanged(object sender, EventArgs e)

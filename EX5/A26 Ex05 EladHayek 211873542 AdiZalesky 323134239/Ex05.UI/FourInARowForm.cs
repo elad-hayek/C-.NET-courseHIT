@@ -27,6 +27,69 @@ namespace Ex05.UI
             InitializeComponent();
             r_GameManager = new GameManager(i_GameManagerParameters);
             initializeDynamicComponents(i_GameManagerParameters);
+
+            r_GameManager.UpdateBoard += gameManager_UpdateBoard;
+            r_GameManager.ClearBoard += gameManager_ClearBoard;
+            r_GameManager.UpdateScore += gameManager_UpdateScore;
+            r_GameManager.GameOver += gameManager_GameOver;
+            r_GameManager.ColumnFull += gameManager_ColumnFull;
+        }
+
+        private void gameManager_ColumnFull(int i_Column)
+        {
+            m_ColumnNumberButtons[i_Column].Enabled = false;
+        }
+
+        private void gameManager_GameOver(Player i_Player)
+        {
+            DialogResult result;
+
+            if (i_Player == null)
+            {
+                string message = string.Format("Tie!!{0}Another Round?", Environment.NewLine);
+                result = MessageBox.Show(message, "A Tie!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            }
+            else
+            {
+                string message = string.Format("{0} Won!!{1}Another Round?", i_Player.PlayerName, Environment.NewLine);
+                result = MessageBox.Show(message, "A Win!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            }
+
+            bool anotherRound = result == DialogResult.Yes;
+
+            if (anotherRound)
+            {
+                foreach(Button columnButton in m_ColumnNumberButtons)
+                {
+                    columnButton.Enabled = true;
+                }
+
+                r_GameManager.HandleEndOfRound();
+            }
+            else
+            {
+                Close();
+            }
+        }
+
+        private void gameManager_UpdateScore(Player i_Player)
+        {
+            if($"{i_Player.PlayerName}:" == m_LabelPlayer1Name.Text)
+            {
+                m_LabelPlayer1Score.Text = i_Player.Score.ToString();
+            }
+            else
+            {
+                m_LabelPlayer2Score.Text = i_Player.Score.ToString();
+            }
+        }
+
+        private void gameManager_ClearBoard()
+        {
+            foreach(Button cellButton in m_BoardButtons)
+            {
+                cellButton.Text = string.Empty;
+            }
         }
 
         private void initializeDynamicComponents(GameManagerCreationParameters i_GameManagerParameters)
@@ -85,6 +148,14 @@ namespace Ex05.UI
         {
             Button columnButton = sender as Button;
             int columnNumber = int.Parse(columnButton.Text) - 1;
+
+            r_GameManager.PlayTurn(columnNumber);
+        }
+
+        private void gameManager_UpdateBoard(int i_Row, int i_Col, char i_PlayerSymbol)
+        {
+            Button cellButton = m_BoardButtons[i_Row, i_Col];
+            cellButton.Text = i_PlayerSymbol.ToString();
         }
     }
 }

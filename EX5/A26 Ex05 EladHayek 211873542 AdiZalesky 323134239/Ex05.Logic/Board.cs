@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Ex05.Logic
 {
@@ -9,6 +10,9 @@ namespace Ex05.Logic
         private const int k_MaxBoardDimension = 10;
         private readonly int r_Height;
         private readonly int r_Width;
+
+        public event Action<int, int, char> UpdateBoard;
+        public event Action<int> ColumnFull;
 
         public int Width
         {
@@ -46,9 +50,31 @@ namespace Ex05.Logic
             {
                 int nextEmptyRow = getFirstEmptyRowInColumn(i_Column);
                 r_BoardMatrix[nextEmptyRow, i_Column] = i_GameChip;
+                OnUpdateBoard(nextEmptyRow, i_Column, i_GameChip.PlayerSymbol);
+
+                if (nextEmptyRow == 0)
+                {
+                    OnColumnFull(i_Column);
+                }
             }
 
             return error;
+        }
+
+        protected virtual void OnUpdateBoard(int i_Row, int i_Column, char i_PlayerSymbol)
+        {
+            if(UpdateBoard != null)
+            {
+                UpdateBoard.Invoke(i_Row, i_Column, i_PlayerSymbol);
+            }
+        }
+
+        protected virtual void OnColumnFull(int i_Column)
+        {
+            if(ColumnFull != null)
+            {
+                ColumnFull.Invoke(i_Column);
+            }
         }
 
         private int getFirstEmptyRowInColumn(int i_Column)
