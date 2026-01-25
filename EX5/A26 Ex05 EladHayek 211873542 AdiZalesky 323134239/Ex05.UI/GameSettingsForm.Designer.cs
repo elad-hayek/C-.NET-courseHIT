@@ -80,6 +80,7 @@
             this.m_TextBoxPlayer1.Name = "m_TextBoxPlayer1";
             this.m_TextBoxPlayer1.Size = new System.Drawing.Size(100, 20);
             this.m_TextBoxPlayer1.TabIndex = 6;
+            this.m_TextBoxPlayer1.TextChanged += new System.EventHandler(this.m_TextBoxPlayer1_TextChanged);
             // 
             // m_TextBoxPlayer2
             // 
@@ -89,6 +90,7 @@
             this.m_TextBoxPlayer2.Size = new System.Drawing.Size(100, 20);
             this.m_TextBoxPlayer2.TabIndex = 7;
             this.m_TextBoxPlayer2.Text = "[Computer]";
+            this.m_TextBoxPlayer2.TextChanged += new System.EventHandler(this.m_TextBoxPlayer2_TextChanged);
             // 
             // m_LabelBoardSize
             // 
@@ -163,6 +165,7 @@
             // 
             // m_ButtonStart
             // 
+            this.m_ButtonStart.Enabled = false;
             this.m_ButtonStart.Location = new System.Drawing.Point(15, 197);
             this.m_ButtonStart.Name = "m_ButtonStart";
             this.m_ButtonStart.Size = new System.Drawing.Size(187, 23);

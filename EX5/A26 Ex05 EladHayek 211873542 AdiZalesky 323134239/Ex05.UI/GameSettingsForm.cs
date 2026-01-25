@@ -18,12 +18,6 @@ namespace Ex05.UI
             InitializeComponent();
         }
 
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void m_ButtonStart_Click(object sender, EventArgs e)
         {
             GameManagerCreationParameters gameManagerParameters = new GameManagerCreationParameters();
@@ -62,5 +56,28 @@ namespace Ex05.UI
             }
         }
 
+        private void m_TextBoxPlayer1_TextChanged(object sender, EventArgs e)
+        {
+            if(m_TextBoxPlayer1.Text.Length == 0 || m_TextBoxPlayer2.Text.Length == 0)
+            {
+                m_ButtonStart.Enabled = false;
+            }
+            else
+            {
+                m_ButtonStart.Enabled = true;
+            }
+        }
+
+        private void m_TextBoxPlayer2_TextChanged(object sender, EventArgs e)
+        {
+            if (m_TextBoxPlayer1.Text.Length == 0 || m_TextBoxPlayer2.Text.Length == 0)
+            {
+                m_ButtonStart.Enabled = false;
+            }
+            else
+            {
+                m_ButtonStart.Enabled = true;
+            }
+        }
     }
 }
