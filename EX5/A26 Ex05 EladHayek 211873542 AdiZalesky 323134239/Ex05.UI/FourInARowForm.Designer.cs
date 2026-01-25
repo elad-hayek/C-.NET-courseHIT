@@ -38,7 +38,7 @@
             // 
             this.m_LabelPlayer1Name.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.m_LabelPlayer1Name.AutoSize = true;
-            this.m_LabelPlayer1Name.Location = new System.Drawing.Point(92, 299);
+            this.m_LabelPlayer1Name.Location = new System.Drawing.Point(88, 306);
             this.m_LabelPlayer1Name.Name = "m_LabelPlayer1Name";
             this.m_LabelPlayer1Name.Size = new System.Drawing.Size(35, 13);
             this.m_LabelPlayer1Name.TabIndex = 0;
@@ -48,7 +48,7 @@
             // 
             this.m_LabelPlayer1Score.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.m_LabelPlayer1Score.AutoSize = true;
-            this.m_LabelPlayer1Score.Location = new System.Drawing.Point(133, 299);
+            this.m_LabelPlayer1Score.Location = new System.Drawing.Point(129, 306);
             this.m_LabelPlayer1Score.Name = "m_LabelPlayer1Score";
             this.m_LabelPlayer1Score.Size = new System.Drawing.Size(35, 13);
             this.m_LabelPlayer1Score.TabIndex = 1;
@@ -58,7 +58,7 @@
             // 
             this.m_LabelPlayer2Name.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.m_LabelPlayer2Name.AutoSize = true;
-            this.m_LabelPlayer2Name.Location = new System.Drawing.Point(220, 299);
+            this.m_LabelPlayer2Name.Location = new System.Drawing.Point(216, 306);
             this.m_LabelPlayer2Name.Name = "m_LabelPlayer2Name";
             this.m_LabelPlayer2Name.Size = new System.Drawing.Size(35, 13);
             this.m_LabelPlayer2Name.TabIndex = 2;
@@ -68,7 +68,7 @@
             // 
             this.m_LabelPlayer2Score.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.m_LabelPlayer2Score.AutoSize = true;
-            this.m_LabelPlayer2Score.Location = new System.Drawing.Point(292, 299);
+            this.m_LabelPlayer2Score.Location = new System.Drawing.Point(257, 306);
             this.m_LabelPlayer2Score.Name = "m_LabelPlayer2Score";
             this.m_LabelPlayer2Score.Size = new System.Drawing.Size(35, 13);
             this.m_LabelPlayer2Score.TabIndex = 3;

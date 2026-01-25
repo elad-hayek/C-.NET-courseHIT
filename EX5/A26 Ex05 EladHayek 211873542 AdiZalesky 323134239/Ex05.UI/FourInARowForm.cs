@@ -16,11 +16,12 @@ namespace Ex05.UI
         private readonly GameManager r_GameManager;
         private List<Button> m_ColumnNumberButtons = new List<Button>();
         private Button[,] m_BoardButtons;
-        private const int k_ButtonWidth = 40;
+        private const int k_ButtonWidth = 30;
         private const int k_ColumnButtonHeight = 20;
         private const int k_CellButtonHeight = 30;
         private const int k_MarginSize = 10;
         private const int k_FormBorderWidth = 16;
+        private const int k_FormBorderHeight = 39;
 
         public FourInARowForm(GameManagerCreationParameters i_GameManagerParameters)
         {
@@ -94,11 +95,16 @@ namespace Ex05.UI
 
         private void initializeDynamicComponents(GameManagerCreationParameters i_GameManagerParameters)
         {
+            //Controls.Remove(m_LabelPlayer1Name);
+            //Controls.Remove(m_LabelPlayer1Score);
+            //Controls.Remove(m_LabelPlayer2Name);
+            //Controls.Remove(m_LabelPlayer2Score);
+
             int boardWidth = (i_GameManagerParameters.BoardWidth * k_ButtonWidth) + ((i_GameManagerParameters.BoardWidth - 1) * k_MarginSize);
             int boardHeight = (i_GameManagerParameters.BoardHeight * k_CellButtonHeight) + ((i_GameManagerParameters.BoardHeight - 1) * k_MarginSize);
             
             Width = boardWidth + (2 * k_MarginSize) + k_FormBorderWidth;
-            Height = boardHeight + (2 * k_MarginSize) + (k_ColumnButtonHeight * i_GameManagerParameters.BoardHeight) + m_LabelPlayer1Name.Height;
+            Height = boardHeight + (3 * k_MarginSize) + k_CellButtonHeight + k_FormBorderHeight + m_LabelPlayer1Name.Height;
 
             m_LabelPlayer1Name.Text = $"{i_GameManagerParameters.Player1Name}:";
             m_LabelPlayer2Name.Text = $"{i_GameManagerParameters.Player2Name}:";
