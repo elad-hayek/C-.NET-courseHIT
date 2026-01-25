@@ -22,6 +22,7 @@ namespace Ex05.UI
         private const int k_MarginSize = 10;
         private const int k_FormBorderWidth = 16;
         private const int k_FormBorderHeight = 39;
+        private const int k_LabelGroupsGap = 40;
 
         public FourInARowForm(GameManagerCreationParameters i_GameManagerParameters)
         {
@@ -95,11 +96,6 @@ namespace Ex05.UI
 
         private void initializeDynamicComponents(GameManagerCreationParameters i_GameManagerParameters)
         {
-            //Controls.Remove(m_LabelPlayer1Name);
-            //Controls.Remove(m_LabelPlayer1Score);
-            //Controls.Remove(m_LabelPlayer2Name);
-            //Controls.Remove(m_LabelPlayer2Score);
-
             int boardWidth = (i_GameManagerParameters.BoardWidth * k_ButtonWidth) + ((i_GameManagerParameters.BoardWidth - 1) * k_MarginSize);
             int boardHeight = (i_GameManagerParameters.BoardHeight * k_CellButtonHeight) + ((i_GameManagerParameters.BoardHeight - 1) * k_MarginSize);
             
@@ -144,10 +140,29 @@ namespace Ex05.UI
                 }
             }
 
-            m_LabelPlayer1Name.Top = labelsTop;
-            m_LabelPlayer1Score.Top = labelsTop;
-            m_LabelPlayer2Name.Top = labelsTop;
-            m_LabelPlayer2Score.Top = labelsTop;
+            positionLabelsAtBottom(boardWidth, labelsTop);
+        }
+
+        private void positionLabelsAtBottom(int i_BoardWidth, int i_LabelsTop)
+        {
+            int player1GroupWidth = m_LabelPlayer1Name.Width + m_LabelPlayer1Score.Width;
+            int player2GroupWidth = m_LabelPlayer2Name.Width + m_LabelPlayer2Score.Width;
+            int totalLabelsWidth = player1GroupWidth + k_LabelGroupsGap + player2GroupWidth;
+
+            int clientWidth = i_BoardWidth + (2 * k_MarginSize);
+            int startX = (clientWidth - totalLabelsWidth) / 2;
+
+            m_LabelPlayer1Name.Left = startX;
+            m_LabelPlayer1Name.Top = i_LabelsTop;
+
+            m_LabelPlayer1Score.Left = m_LabelPlayer1Name.Right;
+            m_LabelPlayer1Score.Top = i_LabelsTop;
+
+            m_LabelPlayer2Name.Left = m_LabelPlayer1Score.Right + k_LabelGroupsGap;
+            m_LabelPlayer2Name.Top = i_LabelsTop;
+
+            m_LabelPlayer2Score.Left = m_LabelPlayer2Name.Right;
+            m_LabelPlayer2Score.Top = i_LabelsTop;
         }
 
         private void columnButton_Click(object sender, EventArgs e)
